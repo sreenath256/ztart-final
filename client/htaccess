@@ -1,0 +1,54 @@
+<IfModule mod_rewrite.c>
+      RewriteEngine On
+      RewriteBase /
+      RewriteRule ^index\.html$ - [L]
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteCond %{REQUEST_FILENAME} !-l
+      RewriteRule . /index.html [L]
+</IfModule>
+
+Redirect 301 https://ztartvisa.com/australia-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/australia-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/australia-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/switzerland-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/japan-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/contact-us https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/services https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/blog/uk-adventure-more-than-just-london https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/blog/applying-for-an-australian-tourist-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/usa-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/italy-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/blog/how-to-get-schengen-visa-a-complete-guide-for-uae-travellers https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/uk-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/a-comprehensive-guide-on-us-visa-renewal-from-uae https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/blog/is-travel-insurance-must-for-international-travelers https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/blog/best-time-to-visit-australia https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/spain-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/case-study-category/tax-management https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/france-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/turkey-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/uk-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/canada-tourist-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/spain-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/japan-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/blog-grid-2-columns-sidebar-left https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/australia-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/service/affordable-price https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/switzerland-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/italy-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/france-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/usa-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/italy-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/japan-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/japan-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/turkey-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/uk-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/uk-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/usa-visit-visa-from-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/australia-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/france-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/italy-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/japan-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/spain-visit-visa-dubai https://ztartvisa.com
+Redirect 301 https://ztartvisa.com/visa/switzerland-visit-visa-dubai https://ztartvisa.com

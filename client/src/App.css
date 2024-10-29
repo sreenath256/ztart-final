@@ -1,0 +1,374 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    src: url(assets/fonts/poppins/poppins-light-webfont.woff2) format(woff2);
+    font-family: "poppins-light";
+    font-display: swap;
+}
+@font-face {
+    src: url(assets/fonts/poppins/poppins-regular-webfont.woff2) format(woff2);
+    font-family: "poppins-regular";
+    font-display: swap;
+}
+@font-face {
+    src: url(assets/fonts/poppins/poppins-medium-webfont.woff2) format(woff2);
+    font-family: "poppins-medium";
+    font-display: swap;
+}
+@font-face {
+    src: url(assets/fonts/poppins/poppins-semibold-webfont.woff2) format(woff2);
+    font-family: "poppins-semibold";
+    font-display: swap;
+}
+@font-face {
+    src: url(assets/fonts/poppins/poppins-bold-webfont.woff2) format(woff2);
+    font-family: "poppins-bold";
+    font-display: swap;
+}
+@font-face {
+    src: url(assets/fonts/poppins/poppins-extrabold-webfont.woff2) format(woff2);
+    font-family: "poppins-extrabold";
+    font-display: swap;
+}
+
+
+
+
+
+html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: #fff;
+  background: #009A92;
+}
+
+::selection {
+  color: #fff;
+  background: #009A92;
+}
+
+body {
+  /* max-width: 1550px; */
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins-regular', sans-serif;
+    overflow-x: hidden;
+    color: #000;
+    background-color: white;
+}
+
+
+
+button:focus {
+    outline: none;
+}
+
+a:active,
+a:hover,
+a:focus,
+a:visited {
+    text-decoration: none;
+}
+
+::placeholder{
+  font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+.chfont{
+  font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+
+}
+
+/* travelaCarousal */
+
+.travelaCarousal .arrow1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 43%;
+    z-index: 9;
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    background-color: #F5F5F5;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+  }
+  
+ 
+
+
+  .travelaCarousal .arrow-right1{
+    right: -15px;
+  }
+  .travelaCarousal .arrow-left1{
+    left: -15px;
+  }
+  .travelaCarousal .slick-slide > div{
+    margin-right: 17px;
+  }
+  
+  @media only screen and (min-width: 320px) and (max-width: 479px){
+    .travelaCarousal .arrow1{
+      height: 40px;
+      width: 40px;
+      font-size: 16px;
+    }
+    .travelaCarousal .arrow-right1{
+      right: -5px !important;
+    }
+    .travelaCarousal .arrow-left1{
+      left: -5px !important;
+    }
+    .travelaCarousal .slick-slide > div{
+      margin-right: 14px;
+    }
+  }
+
+/* .slick-slide > div{
+    margin: 0 10px;
+} */
+/* Add this CSS to your stylesheets or component styles */
+.slick-slider:focus {
+  outline: none !important;
+}
+
+/* If you want to remove the outline only when the slider is active, you can use the :active pseudo-class */
+.slick-slider:active {
+  outline: none !important;
+}
+/* .travelaCarousal .slick-dots button:before{
+color:rgb(228, 30, 30)  !important;
+
+}
+.travelaCarousal .slick-dots li.slick-active button:before {
+color:rgb(0, 244, 28)!important;
+} */
+
+.travelaCarousal .slick-dots li button:before {
+    margin-top: 10px !important;
+    font-size: 10px !important; /* Change this value to adjust the dot size */
+    line-height: 1 !important; /* Adjust the line height if needed */
+}
+.travelaCarousal .slick-dots li {
+    margin: 0 0px !important; /* Adjust the horizontal space between dots */
+}
+
+/* betterDealCarousal */
+.betterDealCarousal .arrow1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 30%;
+    z-index: 9;
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    background-color: #F5F5F5;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 479px){
+    .betterDealCarousal .arrow1{
+      height: 40px;
+      width: 40px;
+      font-size: 16px;
+    }
+    .betterDealCarousal .arrow-right1{
+      right: -5px !important;
+    }
+    .betterDealCarousal .arrow-left1{
+      left: -5px !important;
+    }
+  }
+  
+  .betterDealCarousal .arrow-right1{
+    right: -15px;
+  }
+  .betterDealCarousal .arrow-left1{
+    left: -15px;
+  }
+
+  /* TestimonialCarousal */
+
+  .TestimonialCarousal .arrow1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 45%;
+    z-index: 9;
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    background-color: #F5F5F5;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+  }
+  .TestimonialCarousal .slick-slide > div{
+    margin-right: 17px;
+  }
+  .TestimonialCarousal .slick-dots li button:before {
+    margin-top: 20px !important;
+    font-size: 10px !important; /* Change this value to adjust the dot size */
+    line-height: 1 !important; /* Adjust the line height if needed */
+}
+.TestimonialCarousal .slick-dots li {
+    margin: 0 0px !important; /* Adjust the horizontal space between dots */
+}
+
+  @media only screen and (min-width: 320px) and (max-width: 479px){
+    .TestimonialCarousal .arrow1{
+      height: 40px;
+      width: 40px;
+      font-size: 16px;
+    }
+    .TestimonialCarousal .arrow-right1{
+      right: -5px !important;
+    }
+    .TestimonialCarousal .arrow-left1{
+      left: -5px !important;
+    }
+    .TestimonialCarousal .slick-slide > div{
+      margin-right: 14px;
+    }
+  }
+  
+  .TestimonialCarousal .arrow-right1{
+    right: -15px;
+  }
+  .TestimonialCarousal .arrow-left1{
+    left: -15px;
+  }
+  /* imagesCarousal */
+  .imagesCarousal .arrow1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 43%;
+    z-index: 9;
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    background-color: #F5F5F5;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+  }
+  
+  .imagesCarousal .slick-dots li button:before {
+    margin-top: 10px !important;
+    font-size: 10px !important; /* Change this value to adjust the dot size */
+    line-height: 1 !important; /* Adjust the line height if needed */
+}
+.imagesCarousal .slick-dots li {
+    margin: 0 0px !important; /* Adjust the horizontal space between dots */
+}
+
+  @media only screen and (min-width: 320px) and (max-width: 479px){
+    .imagesCarousal .arrow1{
+      height: 40px;
+      width: 40px;
+      font-size: 16px;
+    }
+    .imagesCarousal .arrow-right1{
+      right: -5px !important;
+    }
+    .imagesCarousal .arrow-left1{
+      left: -5px !important;
+    }
+  }
+  
+  .imagesCarousal .arrow-right1{
+    right: -15px;
+  }
+  .imagesCarousal .arrow-left1{
+    left: -15px;
+  }
+
+  /* 9===============*/
+
+.visa-effect{
+  background: rgba(62, 62, 62, 0.55);
+border-bottom-left-radius: 16px;
+border-bottom-right-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(2.9px);
+-webkit-backdrop-filter: blur(5.9px);
+}
+
+.priceRibbon::before{
+  content: "";
+  border: 10px solid;
+  border-color: #009A92 #009A92  transparent transparent ;
+  position: absolute;
+  left: 0;
+  bottom: -11px;
+
+}
+.priceRibbon::after{
+  content: "";
+    border: 10px solid;
+    border-color:#1a4442 transparent transparent  #1a4442   ;
+    position: absolute;
+    right: 0;
+    bottom: -11px;
+
+}
+
+.ontimegaur{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 6px 0px, #1a44420f 1px 3px 3px 2px, #1a444223 0px 0px 0px 7px;
+}
+
+/*  */
+.comming-wrapper h1 {
+
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0;
+
+}
+
+.dot {
+  color: #1a4442;
+
+}
+
+
+/* monosary */
+@media only screen and (min-width: 992px){ 
+.monosary:nth-child(1){
+  padding-top: 40px;
+}
+.monosary:nth-child(5){
+  padding-top: 30px;
+}
+.monosary:nth-child(9){
+  padding-top: 40px;
+}
+}
+
+/* Footer hide in Mobile */
+@media only screen and (max-width: 767px) {
+  .footerHide {
+    display: none;
+  }
+}
+
+
+.custom-progress-class{
+  color: yellow;
+}
