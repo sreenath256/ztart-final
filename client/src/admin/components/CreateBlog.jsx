@@ -147,6 +147,7 @@ const CreateBlog = () => {
                       className="sr-only"
                       onChange={handleImageChange}
                       accept="image/*"
+                      required
                     />
                   </label>
                   <p className="pl-1">or drag and drop</p>
@@ -186,6 +187,7 @@ const CreateBlog = () => {
           editor={ClassicEditor}
           data={description}
           onChange={(event, editor) => setDescription(editor.getData())}
+          required
         />
       </div>
 
