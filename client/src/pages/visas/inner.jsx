@@ -12,6 +12,7 @@ import axios from "axios";
 import { vars } from "../../constents/Api";
 import { RiFileWarningLine } from "react-icons/ri";
 import { Loader } from "../../components";
+import RichTextContent from "../../components/RichTextEditor/RichTextContent";
 
 const notify = () =>
   toast.dark("Application started ✅", {
@@ -270,13 +271,9 @@ const VisaInner = () => {
               </div>
               {visadata?.questions?.map((question) => (
                 <div className="pb-3 border-b border-b-1">
-                  <h2 className="mt-5  text-xl font-PoppinsBold ">
-                    {question.question}
-                  </h2>
-                  <div
-                    className="mt-5 flex flex-col gap-10 "
-                    dangerouslySetInnerHTML={{ __html: question.answer }}
-                  ></div>
+                  <RichTextContent content={question.question} />
+                
+                  <RichTextContent content={question.answer} />
                 </div>
               ))}
               {/* <div className="mt-5 flex flex-col gap-10 prose-h1:text-2xl prose-h1:font-bold prose-h1:capitalize prose-h2:text-xl prose-h2:font-PoppinsBold prose-h3:text-xl prose-h3:font-PoppinsBold prose-li:list-disc prose-h2:capitalize prose-h3:capitalize prose-h4:font-bold prose-p:text-base prose-p:mt-3 prose-ul:mt-3 prose-li:pt-1 prose-a:font-extrabold">

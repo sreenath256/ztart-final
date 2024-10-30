@@ -10,6 +10,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { vars } from "../../constents/Api";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const CreateVisasForm = () => {
   const [title, setTitle] = useState("");
@@ -24,6 +26,48 @@ const CreateVisasForm = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ direction: "rtl" }],
+      ["code-block"],
+    ],
+  };
+
+  // React Quill formats configuration
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "video",
+    "color",
+    "background",
+    "align",
+    "script",
+    "indent",
+    "direction",
+    "code-block",
+  ];
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -244,23 +288,39 @@ const CreateVisasForm = () => {
             key={index}
             className="mb-4 p-4 border border-gray-200 rounded-md"
           >
-            <input
-              type="text"
-              value={q.question}
-              onChange={(e) =>
-                handleQuestionChange(index, "question", e.target.value)
+            <style jsx global>{`
+              .ql-editor {
+                min-height: 200px;
               }
-              placeholder="Question"
-              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-            <CKEditor
-              editor={ClassicEditor}
-              data={q.answer}
-              onChange={(event, editor) =>
-                handleQuestionChange(index, "answer", editor.getData())
+              .ql-toolbar.ql-snow {
+                border-radius: 0.375rem 0.375rem 0 0;
               }
-            />
+              .ql-container.ql-snow {
+                border-radius: 0 0 0.375rem 0.375rem;
+              }
+            `}</style>
+            <div className="mb-2">
+              <ReactQuill
+                value={q.question}
+                onChange={(value) =>
+                  handleQuestionChange(index, "question", value)
+                }
+                placeholder="Enter the question here... "
+                modules={modules}
+                formats={formats}
+              />
+            </div>
+            <div className="mb-2">
+              <ReactQuill
+                value={q.answer}
+                onChange={(value) =>
+                  handleQuestionChange(index, "answer", value)
+                }
+                placeholder="Enter the answer here... "
+                modules={modules}
+                formats={formats}
+              />
+            </div>
             <button
               type="button"
               onClick={() => removeQuestion(index)}
@@ -298,13 +358,19 @@ const CreateVisasForm = () => {
               className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
-            <CKEditor
-              editor={ClassicEditor}
-              data={faq.answer}
-              onChange={(event, editor) =>
-                handleFaqChange(index, "answer", editor.getData())
-              }
-            />
+
+            <div className="mb-2">
+              <input
+                type="text"
+                value={faq.answer}
+                onChange={(e) =>
+                  handleFaqChange(index, "answer", e.target.value)
+                }
+                placeholder="FAQ Answer"
+                className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                required
+              />
+            </div>
             <button
               type="button"
               onClick={() => removeFaq(index)}
@@ -326,7 +392,9 @@ const CreateVisasForm = () => {
       <button
         type="submit"
         className={`w-full bg-[#00a39a] text-white py-2 px-4 rounded-md hover:bg-[#136a65] ${
-          isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-[#00a39a] hover:bg-[#15756e]"
+          isLoading
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-[#00a39a] hover:bg-[#15756e]"
         }`}
       >
         {isLoading ? "Submitting..." : "Submit visa"}

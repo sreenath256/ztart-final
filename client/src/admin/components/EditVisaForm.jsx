@@ -5,6 +5,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import axios from "axios";
 import { vars } from "../../constents/Api";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const EditVisaForm = () => {
   const { id } = useParams(); // Get the ID from the URL parameters
@@ -16,7 +18,49 @@ const EditVisaForm = () => {
   const [about, setAbout] = useState("");
   const [questions, setQuestions] = useState([]);
   const [faqs, setFaqs] = useState([]);
-  const navigate =useNavigate()
+  const navigate = useNavigate();
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ direction: "rtl" }],
+      ["code-block"],
+    ],
+  };
+
+  // React Quill formats configuration
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "video",
+    "color",
+    "background",
+    "align",
+    "script",
+    "indent",
+    "direction",
+    "code-block",
+  ];
 
   // Fetch visa details from API
   useEffect(() => {
@@ -26,8 +70,7 @@ const EditVisaForm = () => {
           `${vars.api_url}/api/1.0/admin/testimonial/testimonial/${id}`
         );
         const data = response?.data?.data;
-        console.log("From edit visa page",data);
-        
+        console.log("From edit visa page", data);
 
         // Assuming the API returns the data in the expected format
         setTitle(data.title);
@@ -83,7 +126,7 @@ const EditVisaForm = () => {
       about,
       questions,
       faqs,
-      imageURL:image,
+      imageURL: image,
     };
 
     // Create FormData to handle file upload
@@ -103,7 +146,7 @@ const EditVisaForm = () => {
       );
 
       if (response.ok) {
-        navigate('/manage-visas')
+        navigate("/manage-visas");
 
         console.log("Successfully updated visa details.");
         // Optionally, redirect or show a success message
@@ -158,7 +201,7 @@ const EditVisaForm = () => {
         <img
           src={image}
           alt="Selected"
-          className="mt-1 w-full h-48 object-cover rounded-md"
+          className="mt-1 w-full h-48 object-contain rounded-md"
         />
         <input
           type="file"
@@ -183,7 +226,7 @@ const EditVisaForm = () => {
           required
         />
       </div>
-      
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Questions and Answers
@@ -193,23 +236,46 @@ const EditVisaForm = () => {
             key={index}
             className="mb-4 p-4 border border-gray-200 rounded-md"
           >
-            <input
-              type="text"
-              value={q.question}
-              onChange={(e) =>
-                handleQuestionChange(index, "question", e.target.value)
+            <style jsx global>{`
+              .ql-editor {
+                min-height: 200px;
               }
-              placeholder="Question"
-              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-            <CKEditor
-              editor={ClassicEditor}
-              data={q.answer}
-              onChange={(event, editor) =>
-                handleQuestionChange(index, "answer", editor.getData())
+              .ql-toolbar.ql-snow {
+                border-radius: 0.375rem 0.375rem 0 0;
               }
-            />
+              .ql-container.ql-snow {
+                border-radius: 0 0 0.375rem 0.375rem;
+              }
+            `}</style>
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Question
+              </label>
+              <ReactQuill
+                value={q.question}
+                onChange={(value) =>
+                  handleQuestionChange(index, "question", value)
+                }
+                placeholder="Enter the question here... "
+                modules={modules}
+                formats={formats}
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Answer
+              </label>
+              <ReactQuill
+                value={q.answer}
+                onChange={(value) =>
+                  handleQuestionChange(index, "answer", value)
+                }
+                placeholder="Enter the answer here... "
+                modules={modules}
+                formats={formats}
+              />
+            </div>
+
             <button
               type="button"
               onClick={() => removeQuestion(index)}
@@ -233,32 +299,40 @@ const EditVisaForm = () => {
         </label>
         {faqs.map((faq, index) => (
           <div
-            key={index}
-            className="mb-4 p-2 border border-gray-200 rounded-md"
-          >
+          key={index}
+          className="mb-4 p-4 border border-gray-200 rounded-md"
+        >
+          <input
+            type="text"
+            value={faq.question}
+            onChange={(e) =>
+              handleFaqChange(index, "question", e.target.value)
+            }
+            placeholder="FAQ Question"
+            className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            required
+          />
+
+          <div className="mb-2">
             <input
               type="text"
-              value={faq.question}
-              onChange={(e) =>
-                handleFaqChange(index, "question", e.target.value)
-              }
-              placeholder="Question"
-              className="mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring-opacity-50"
-            />
-            <textarea
               value={faq.answer}
-              onChange={(e) => handleFaqChange(index, "answer", e.target.value)}
-              placeholder="Answer"
-              className="mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring-opacity-50"
-              rows="3"
-            ></textarea>
-            <button
-              onClick={() => handleRemoveFaq(index)}
-              className="text-red-600 hover:text-red-800"
-            >
-              <MdRemoveCircle className="inline mr-1" /> Remove FAQ
-            </button>
+              onChange={(e) =>
+                handleFaqChange(index, "answer", e.target.value)
+              }
+              placeholder="FAQ Answer"
+              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              required
+            />
           </div>
+          <button
+            type="button"
+            onClick={() => removeFaq(index)}
+            className="text-red-500 hover:text-red-700"
+          >
+            <MdRemoveCircle className="inline mr-1" /> Remove FAQ
+          </button>
+        </div>
         ))}
         <button
           type="button"

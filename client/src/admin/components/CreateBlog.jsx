@@ -10,6 +10,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios"; // Import axios for API calls
 import { useNavigate } from "react-router-dom";
 import { vars } from "../../constents/Api";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -20,6 +22,49 @@ const CreateBlog = () => {
   const [faqs, setFaqs] = useState([{ question: "", answer: "" }]);
   const [loading, setLoading] = useState(false); // For button state
   const navigate = useNavigate();
+
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ direction: "rtl" }],
+      ["code-block"],
+    ],
+  };
+
+  // React Quill formats configuration
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "video",
+    "color",
+    "background",
+    "align",
+    "script",
+    "indent",
+    "direction",
+    "code-block",
+  ];
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -183,12 +228,33 @@ const CreateBlog = () => {
           Description
         </label>
 
-        <CKEditor
+        <style jsx global>{`
+          .ql-editor {
+            min-height: 200px;
+          }
+          .ql-toolbar.ql-snow {
+            border-radius: 0.375rem 0.375rem 0 0;
+          }
+          .ql-container.ql-snow {
+            border-radius: 0 0 0.375rem 0.375rem;
+          }
+        `}</style>
+        <div className="mb-2">
+          <ReactQuill
+            value={description}
+            onChange={(value) => setDescription(value)}
+            placeholder="Enter the description here..."
+            modules={modules}
+            formats={formats}
+          />
+        </div>
+
+        {/* <CKEditor
           editor={ClassicEditor}
           data={description}
           onChange={(event, editor) => setDescription(editor.getData())}
           required
-        />
+        /> */}
       </div>
 
       <div>
@@ -241,7 +307,9 @@ const CreateBlog = () => {
           type="submit"
           disabled={loading} // Disable button when loading
           className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-            loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#00a39a] hover:bg-[#15756e]"
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-[#00a39a] hover:bg-[#15756e]"
           }`}
         >
           {loading ? "Submitting..." : "Submit"}

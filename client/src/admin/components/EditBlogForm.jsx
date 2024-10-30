@@ -5,6 +5,8 @@ import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams for URL parameters
 import axios from "axios";
 import { vars } from "../../constents/Api";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const EditBlogForm = () => {
   const { id } = useParams(); // Get blogId from the URL
@@ -14,6 +16,52 @@ const EditBlogForm = () => {
   const [faqs, setFaqs] = useState([]);
   const [imageFile, setImageFile] = useState(null); // Store the selected image file
   const navigate = useNavigate();
+
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ direction: "rtl" }],
+      ["code-block"],
+    ],
+  };
+
+  // React Quill formats configuration
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "video",
+    "color",
+    "background",
+    "align",
+    "script",
+    "indent",
+    "direction",
+    "code-block",
+  ];
+  
+  
+  
   // Fetch the blog content on component mount
   useEffect(() => {
     let isMounted = true; // Flag to prevent state updates on unmounted component
@@ -135,7 +183,7 @@ const EditBlogForm = () => {
           <img
             src={image} // Display the uploaded image
             alt="Selected"
-            className="mt-1 w-full h-48 object-cover rounded-md"
+            className="mt-1 w-full h-48 object-contain rounded-md"
           />
         )}
         <input
@@ -153,11 +201,28 @@ const EditBlogForm = () => {
         >
           Description
         </label>
-        <CKEditor
-          editor={ClassicEditor}
-          data={description}
-          onChange={(event, editor) => setDescription(editor.getData())}
-        />
+        
+        <style jsx global>{`
+          .ql-editor {
+            min-height: 200px;
+          }
+          .ql-toolbar.ql-snow {
+            border-radius: 0.375rem 0.375rem 0 0;
+          }
+          .ql-container.ql-snow {
+            border-radius: 0 0 0.375rem 0.375rem;
+          }
+        `}</style>
+
+        <div className="mb-2">
+          <ReactQuill
+            value={description}
+            onChange={(value) => setDescription(value)}
+            placeholder="Enter the Description here..."
+            modules={modules}
+            formats={formats}
+          />
+        </div>
       </div>
 
       <div className="mb-4">

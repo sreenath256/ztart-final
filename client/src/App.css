@@ -4,6 +4,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Quill editor custom styles */
+.ql-container {
+  @apply font-sans;
+}
+
+.ql-editor {
+  @apply prose max-w-none;
+}
+
+/* Optional: Add custom styles for toolbar buttons */
+.ql-toolbar button:hover {
+  @apply opacity-80;
+}
+
+.ql-toolbar button:focus {
+  @apply outline-none ring-2 ring-blue-500;
+}
+
+
 @font-face {
     src: url(assets/fonts/poppins/poppins-light-webfont.woff2) format(woff2);
     font-family: "poppins-light";
