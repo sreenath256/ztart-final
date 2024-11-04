@@ -1,2 +1,10 @@
-user-agent: *
-Disallow:
+User-agent: Googlebot
+Disallow: /test/
+
+User-agent: Bingbot
+Disallow: /no-bing/
+
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Sitemap: https://www.example.com/sitemap.xml

@@ -7,6 +7,12 @@
       type="image/svg+xml"
       href="/assets/metalog-cidDCWxI.webp"
     />
+    <link
+      rel="preload"
+      href="https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto,f_auto/tinted_1_hgph8p.webp"
+      as="image"
+    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ZtartVisa</title>
     <style>
@@ -78,6 +84,7 @@
       }
     </style>
     <script
+      defer
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
@@ -88,6 +95,15 @@
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-KX3WT70W21"
     ></script>
+    <script defer>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-KX3WT70W21");
+    </script>
+
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -145,8 +161,8 @@
       })(window, document, "script", "dataLayer", "GTM-KL8JPHN4");
     </script>
     <!-- End Google Tag Manager -->
-    <script type="module" crossorigin src="/assets/index-OuUPHxfi.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-50LMwpHL.css">
+    <script type="module" crossorigin src="/assets/index-ZToN9JLm.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-_ayOA6CY.css">
   </head>
 
   <body>
@@ -169,12 +185,15 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <script>
+      setTimeout(() => {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "/accorechat/accorechat.css";
+        document.head.appendChild(link);
+      }, 200);
+    </script>
 
-    <link
-      href="https://app.intaali.ai/accorechat/accorechat.css"
-      rel="stylesheet"
-      type="text/css"
-    />
     <script src="https://app.intaali.ai/accorechat/accorechat.js"></script>
     <script>
       getCompanyInfo({

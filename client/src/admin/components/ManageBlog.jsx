@@ -49,7 +49,7 @@ const ManageBlogs = () => {
       <div className="mb-8">
         <button 
           onClick={() => console.log("Navigate back")} 
-          className="flex items-center text-blue-600 hover:text-blue-800"
+          className="flex items-center text-visaclr hover:text-visaclrhvr"
         >
           <MdArrowBack className="mr-2" /> Back to All Blogs
         </button>
@@ -76,7 +76,7 @@ const ManageBlogs = () => {
 
         {isLoading && (
           <div className="mt-4 text-center">
-            <p className="text-blue-600">Saving changes...</p>
+            <p className="text-visaclr">Saving changes...</p>
           </div>
         )}
 

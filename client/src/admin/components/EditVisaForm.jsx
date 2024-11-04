@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams for URL parameter
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import axios from "axios";
 import { vars } from "../../constents/Api";
@@ -12,7 +11,10 @@ const EditVisaForm = () => {
   const { id } = useParams(); // Get the ID from the URL parameters
   const [title, setTitle] = useState("");
   const [country, setCountry] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [image, setImage] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
   const [imageFile, setImageFile] = useState(null); // Store the selected image file
   const [description, setDescription] = useState("");
   const [about, setAbout] = useState("");
@@ -74,8 +76,11 @@ const EditVisaForm = () => {
 
         // Assuming the API returns the data in the expected format
         setTitle(data.title);
+        setMetaTitle(data.metaTitle);
+        setMetaDescription(data.metaDescription);
         setCountry(data.country);
         setImage(data.imageURL);
+        setImageAlt(data.imageAlt);
         setDescription(data.description);
         setAbout(data.about);
         setQuestions(data.questions || []);
@@ -120,6 +125,9 @@ const EditVisaForm = () => {
 
   const handleSave = async () => {
     const updatedData = {
+      metaTitle,
+      metaDescription,
+      imageAlt,
       country,
       title,
       description,
@@ -178,7 +186,7 @@ const EditVisaForm = () => {
       </div>
       <div className="mb-4">
         <label
-          htmlFor="title"
+          htmlFor="country"
           className="block text-sm font-medium text-gray-700"
         >
           Country
@@ -188,6 +196,36 @@ const EditVisaForm = () => {
           id="country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="metaTitle"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Meta Title
+        </label>
+        <input
+          type="text"
+          id="metaTitle"
+          value={metaTitle}
+          onChange={(e) => setMetaTitle(e.target.value)}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="metaDescription"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Meta Description
+        </label>
+        <input
+          type="text"
+          id="metaDescription"
+          value={metaDescription}
+          onChange={(e) => setMetaDescription(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:outline-none focus:ring-opacity-50"
         />
       </div>
@@ -216,13 +254,26 @@ const EditVisaForm = () => {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
+          Image Alt
+        </label>
+        <input
+          type="text"
+          value={imageAlt}
+          onChange={(e) => setImageAlt(e.target.value)}
+          rows={3}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+          required
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Description
         </label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
           required
         />
       </div>
@@ -299,40 +350,40 @@ const EditVisaForm = () => {
         </label>
         {faqs.map((faq, index) => (
           <div
-          key={index}
-          className="mb-4 p-4 border border-gray-200 rounded-md"
-        >
-          <input
-            type="text"
-            value={faq.question}
-            onChange={(e) =>
-              handleFaqChange(index, "question", e.target.value)
-            }
-            placeholder="FAQ Question"
-            className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            required
-          />
-
-          <div className="mb-2">
+            key={index}
+            className="mb-4 p-4 border border-gray-200 rounded-md"
+          >
             <input
               type="text"
-              value={faq.answer}
+              value={faq.question}
               onChange={(e) =>
-                handleFaqChange(index, "answer", e.target.value)
+                handleFaqChange(index, "question", e.target.value)
               }
-              placeholder="FAQ Answer"
-              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="FAQ Question"
+              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
               required
             />
+
+            <div className="mb-2">
+              <input
+                type="text"
+                value={faq.answer}
+                onChange={(e) =>
+                  handleFaqChange(index, "answer", e.target.value)
+                }
+                placeholder="FAQ Answer"
+                className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+                required
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => handleRemoveFaq(index)}
+              className="text-red-500 hover:text-red-700"
+            >
+              <MdRemoveCircle className="inline mr-1" /> Remove FAQ
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => removeFaq(index)}
-            className="text-red-500 hover:text-red-700"
-          >
-            <MdRemoveCircle className="inline mr-1" /> Remove FAQ
-          </button>
-        </div>
         ))}
         <button
           type="button"
@@ -344,7 +395,7 @@ const EditVisaForm = () => {
       </div>
       <button
         onClick={handleSave}
-        className="bg-blue-600 text-white px-4 py-2 rounded-md"
+        className="bg-visaclr text-white px-4 py-2 rounded-md"
       >
         Save
       </button>

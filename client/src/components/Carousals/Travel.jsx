@@ -39,14 +39,20 @@ function TravelCarousal() {
   const landingPagePath = "/visa-consultant-in-dubai";
   const navigate = useNavigate();
   const [visaData, setVisaData] = useState([]); // State for visa data
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const lastSlideIndex = allvisaData.length - 3;
   var settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow:  visaData ? (visaData.length >= 3 ? 3 : 2 && visaData.length >= 2 ? 2 : 1)  : 3,
+    slidesToShow: visaData
+      ? visaData.length >= 3
+        ? 3
+        : 2 && visaData.length >= 2
+        ? 2
+        : 1
+      : 3,
     slidesToScroll: 1,
     initialSlide: 0,
     swipe: false, // Disable swiping
@@ -134,8 +140,8 @@ function TravelCarousal() {
         className="travelaCarousal"
       >
         {visaData?.map((data) => {
-          console.log(data,"asdsdfsdfdf");
-          
+          console.log(data, "asdsdfsdfdf");
+
           return (
             <div
               className={`bg-[#DCE1C8] rounded-xl overflow-hidden`}
@@ -143,10 +149,17 @@ function TravelCarousal() {
             >
               <img
                 onClick={() => navigate(`/visa/${data._id}`)}
-                loading="eager"
+                loading="lazy" // Changed to lazy for better performance
                 className="w-full h-48 sm:h-52 md:h-56 object-left-bottom object-cover cursor-pointer"
                 src={data?.imageURL}
                 alt={data?.title}
+                width="800" // Set an explicit width based on the image's expected display size
+                height="450" // Set an explicit height to maintain aspect ratio
+                srcSet={`
+    ${data?.imageURL}?w=400 400w,
+    ${data?.imageURL}?w=800 800w,
+    ${data?.imageURL}?w=1200 1200w
+  `} // Use srcSet for responsive images
               />
             </div>
           );

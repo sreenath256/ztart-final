@@ -151,7 +151,7 @@ function Testimonial() {
         className="TestimonialCarousal"
       >
         {TestimonialData?.map((data, i) => {
-          return <IndivitualTestimonial data={data} />;
+          return <IndivitualTestimonial data={data} key={i} />;
         })}
       </Slider>
     </>

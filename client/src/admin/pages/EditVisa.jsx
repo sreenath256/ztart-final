@@ -54,7 +54,7 @@ const EditVisaPage = () => {
         <Link to="/manage-visas">
           <button
             onClick={() => console.log("Navigate back")}
-            className="flex items-center text-blue-600 hover:text-blue-800"
+            className="flex items-center text-visaclr hover:text-visaclrhvr"
           >
             <MdArrowBack className="mr-2" /> Back to All Visas
           </button>

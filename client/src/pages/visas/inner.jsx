@@ -223,11 +223,11 @@ const VisaInner = () => {
   return (
     <>
       <Helmet>
-        <title>{visadata?.title}</title>
-        <meta name="description" content={visadata?.metaDescpt || {}} />
+        <title>{visadata?.metaTitle}</title>
+        <meta name="description" content={visadata?.metaDescription || {}} />
         <link
           rel="canonical"
-          href={`https://ztartvisa.com/visa/${visadata?._id}`}
+          href={`https://ztartvisa.com/visa/${visadata?.slug}`}
         />
       </Helmet>
 
@@ -243,14 +243,14 @@ const VisaInner = () => {
                 <img
                   className="object-cover w-full h-52 md:h-44 object-left-bottom lg:h-full md:rounded-3xl pointer-events-none"
                   src={visadata?.imageURL}
-                  alt={visadata.title}
+                  alt={visadata?.imageAlt}
                 />
               </div>
               {/* <div
               className="mt-5 flex flex-col gap-10 prose-h1:text-2xl prose-h1:font-bold prose-h1:capitalize prose-h2:text-xl prose-h2:font-PoppinsBold prose-h3:text-xl prose-h3:font-PoppinsBold prose-li:list-disc prose-h2:capitalize prose-h3:capitalize prose-h4:font-bold prose-p:text-base prose-p:mt-3 prose-ul:mt-3 prose-li:pt-1 prose-a:font-extrabold"
               dangerouslySetInnerHTML={{ __html: visadata.body1 }}
             ></div> */}
-              <div className="mt-5 flex flex-col gap-10 text-3xl font-bold capitalize ">
+              <div className="mt-5 flex flex-col gap-10 text-3xl font-bold  ">
                 {visadata?.title}
               </div>
               <div className=" flex flex-col gap-10   capitalize text-base mt-3 ">

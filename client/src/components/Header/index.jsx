@@ -11,7 +11,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
-
 function Header() {
   const navigate = useNavigate("");
   const location = useLocation();
@@ -33,9 +32,6 @@ function Header() {
       setSticky(window.scrollY > 360);
     };
 
-
-
-
     // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
 
@@ -44,7 +40,6 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [[location.pathname]]);
-
 
   const [formData, setFormData] = useState({
     customerName: "",
@@ -85,27 +80,26 @@ function Header() {
       );
 
       if (!response.ok) {
-        toast.error("Please fill out all fields to proceed")
+        toast.error("Please fill out all fields to proceed");
         throw new Error("Something went wrong");
       }
 
       const data = await response.json(); // Assuming the server responds with JSON
-      toast.dark("Submission Successful")
+      toast.dark("Submission Successful");
       setFormData({
         customerName: "",
         mobileNo: "",
         countryId: "",
-      })
+      });
       // window.location.reload();
-      setPopupOpen(false)
-      setVisaOpen(false)
+      setPopupOpen(false);
+      setVisaOpen(false);
       console.log("Submission Successful", data);
       // Here you could clear the form or give feedback to the user
     } catch (error) {
       console.error("Submission failed", error);
     }
   };
-
 
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -160,72 +154,86 @@ function Header() {
           src={VisaLogoOnly}
           alt="Logo"
         />
-        {location.pathname === '/' &&
-        <form
-          className={`${
-            isSticky
-              ? " xl:opacity-100 hidden xl:flex gap-5 transition-opacity duration-150"
-              : "opacity-0 hidden"
-          }`}
-          onSubmit={handleSubmit} // Add form submission handler
-        >
-          <div className="lg:col-span-5   outline text-base outline-1 outline-gray-300 rounded-xl overflow-hidden">
-            <span className="relative w-full">
-              <input
-                className="lg:py-2.5 pl-7 lg:border-r-2 outline-none "
-                type="text"
-                placeholder="Name"
-                name="customerName"
-                value={formData.customerName}
-                onChange={handleChange} // Bind change handler
-                required
-              />
-              <AiOutlineUser className="absolute -top-0.5 left-1 text-lg text-gray-700" />
-            </span>
-            <span className="relative w-full">
-              <input
-                className="lg:py-2.5 pl-[68px] lg:border-r-2 outline-none [&::-webkit-inner-spin-button]:appearance-none"
-                type="tel"
-                inputMode="numeric"
-                placeholder="58 550 3940"
-                pattern="[0-9]{9}"
-                title="Please enter a 9-digit number" 
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange} // Bind change handler
-                required
-              />
-              <p className="absolute -top-[5.3px] 2xl-top-[5px] left-6 chfont font-medium">+971</p>
-              <HiOutlineDevicePhoneMobile className="absolute -top-0.5 left-1 text-lg text-gray-700" />
-            </span>
-            <span className="relative w-full">
-             <select className="w-52 lg:py-2.5  pl-7 text-base outline-none appearance-none"
-             name="countryId"
-             value={formData.countryId}
-             onChange={handleChange} // Bind change handler
-             required>
-             <option value="">Select a location</option>
+        {location.pathname === "/" && (
+          <form
+            className={`${
+              isSticky
+                ? " xl:opacity-100 hidden xl:flex gap-5 transition-opacity duration-150"
+                : "opacity-0 hidden"
+            }`}
+            onSubmit={handleSubmit} // Add form submission handler
+          >
+            <div className="lg:col-span-5   outline text-base outline-1 outline-gray-300 rounded-xl overflow-hidden">
+              <span className="relative w-full">
+                <input
+                  className="lg:py-2.5 pl-7 lg:border-r-2 outline-none "
+                  type="text"
+                  placeholder="Name"
+                  name="customerName"
+                  value={formData.customerName}
+                  onChange={handleChange} // Bind change handler
+                  required
+                />
+                <AiOutlineUser className="absolute -top-0.5 left-1 text-lg text-gray-700" />
+              </span>
+              <span className="relative w-full">
+                <input
+                  className="lg:py-2.5 pl-[68px] lg:border-r-2 outline-none [&::-webkit-inner-spin-button]:appearance-none"
+                  type="tel"
+                  inputMode="numeric"
+                  placeholder="58 550 3940"
+                  pattern="[0-9]{9}"
+                  title="Please enter a 9-digit number"
+                  name="mobileNo"
+                  value={formData.mobileNo}
+                  onChange={handleChange} // Bind change handler
+                  required
+                />
+                <p className="absolute -top-[5.3px] 2xl-top-[5px] left-6 chfont font-medium">
+                  +971
+                </p>
+                <HiOutlineDevicePhoneMobile className="absolute -top-0.5 left-1 text-lg text-gray-700" />
+              </span>
+              <span className="relative w-full">
+                <label htmlFor="country-select" className="sr-only">
+                  Select your location
+                </label>
+                <select
+                  id="country-select"
+                  className="w-52 lg:py-2.5  pl-7 text-base outline-none appearance-none"
+                  name="countryId"
+                  value={formData.countryId}
+                  onChange={handleChange} // Bind change handler
+                  aria-required="true"
+                  aria-label="Select your location"
+                  required
+                >
+                  <option value="">Select a location</option>
                   {countries.map((country) => (
                     <option key={country.countryId} value={country.countryId}>
                       {country.countryName}
                     </option>
                   ))}
-             </select>
-              <IoLocationOutline className="absolute -top-0.5 left-1 text-lg text-gray-700" />
-            </span>
-          </div>
-          <button
-            aria-label="send"
-            className="bg-visaclr px-4 py2.5 hover:bg-white border border-visaclr hover:text-visaclr duration-200 rounded-xl text-white text-base font-PoppinsSemibold"
-            type="submit"
-          >
-            <IoIosSend className="text-xl" />
-          </button>
-        </form>
-}
+                </select>
+                <IoLocationOutline className="absolute -top-0.5 left-1 text-lg text-gray-700" />
+              </span>
+            </div>
+            <button
+              aria-label="send"
+              className="bg-visaclr px-4 py2.5 hover:bg-white border border-visaclr hover:text-visaclr duration-200 rounded-xl text-white text-base font-PoppinsSemibold"
+              type="submit"
+            >
+              <IoIosSend className="text-xl" />
+            </button>
+          </form>
+        )}
         <div className="flex items-center gap-3">
-          <a href="tel:045282118" target="_blank" className="bg-visaclr lg:bg-white hover:bg-visaclrhvr duration-200 hover:text-white  font-PoppinsMedium text-white text-sm lg:text-base lg:text-visaclr border border-visaclr px-5 py-2 md:px-7 rounded-full lg:py-2.5">
-              <span className="">Request a call</span>
+          <a
+            href="tel:045282118"
+            target="_blank"
+            className="bg-visaclr lg:bg-white hover:bg-visaclrhvr duration-200 hover:text-white  font-PoppinsMedium text-white text-sm lg:text-base lg:text-visaclr border border-visaclr px-5 py-2 md:px-7 rounded-full lg:py-2.5"
+          >
+            <span className="">Request a call</span>
           </a>
           <button className="lg:hidden" onClick={togglePopup}>
             <RiMenuFill className="text-xl" />
@@ -245,7 +253,11 @@ function Header() {
           }`}
         >
           {/* ================= */}
-          <button className="absolute top-3 right-3" onClick={togglePopup}>
+          <button
+            className="absolute top-3 right-3"
+            onClick={togglePopup}
+            aria-label="Close popup"
+          >
             <IoCloseOutline className="text-3xl" />
           </button>
           {/* popup-body */}
@@ -257,9 +269,20 @@ function Header() {
             </div>
             <div className="p-4 pt-5 flex flex-col gap-7 h-full">
               <div className="w-full  bg-[#f2efe9] p-5 rounded-xl text-center flex flex-col gap-3">
-                  <h2 className="text-[1.7rem] font-PoppinsSemibold ">Before applying,<br/> know your cost</h2>
-                  <p className="text-base text-gray-700">Simply reach our Visa expert to know the visa process and cost — absolutely free!</p>
-                  <button onClick={visatogglePopup} className="bg-visaclr py-3 rounded-xl text-white font-PoppinsSemibold capitalize">get free visa consultation</button>  
+                <h2 className="text-[1.7rem] font-PoppinsSemibold ">
+                  Before applying,
+                  <br /> know your cost
+                </h2>
+                <p className="text-base text-gray-700">
+                  Simply reach our Visa expert to know the visa process and cost
+                  — absolutely free!
+                </p>
+                <button
+                  onClick={visatogglePopup}
+                  className="bg-visaclr py-3 rounded-xl text-white font-PoppinsSemibold capitalize"
+                >
+                  get free visa consultation
+                </button>
               </div>
               <div>
                 <h2 className="text-lg font-PoppinsSemibold">
@@ -267,19 +290,32 @@ function Header() {
                 </h2>
                 <ul className="text-base pt-4 flex flex-col gap-2">
                   <li>
-                    <Link onClick={()=> setPopupOpen(false)} to="/about">About</Link>
+                    <Link onClick={() => setPopupOpen(false)} to="/about">
+                      About
+                    </Link>
                   </li>
                   <li>
-                    <Link onClick={()=> setPopupOpen(false)} to="/faq">FAQ</Link>
+                    <Link onClick={() => setPopupOpen(false)} to="/faq">
+                      FAQ
+                    </Link>
                   </li>
                   <li>
-                    <Link onClick={()=> setPopupOpen(false)} to="/blogs">Blogs</Link>
+                    <Link onClick={() => setPopupOpen(false)} to="/blogs">
+                      Blogs
+                    </Link>
                   </li>
                   <li>
-                    <Link onClick={()=> setPopupOpen(false)} to="/contact">Contact</Link>
+                    <Link onClick={() => setPopupOpen(false)} to="/contact">
+                      Contact
+                    </Link>
                   </li>
                   <li>
-                    <Link onClick={()=> setPopupOpen(false)} to="/privacy-policy">Privacy Policy</Link>
+                    <Link
+                      onClick={() => setPopupOpen(false)}
+                      to="/privacy-policy"
+                    >
+                      Privacy Policy
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -297,11 +333,14 @@ function Header() {
               <div>
                 <h2 className="text-lg font-PoppinsSemibold">Business Hours</h2>
                 <p className="pt-3">Monday - Friday : 9AM - 6PM</p>
-                <p >Saturday & Sunday Closed</p>
+                <p>Saturday & Sunday Closed</p>
               </div>
               <div>
                 <h2 className="text-lg font-PoppinsSemibold">Location</h2>
-                <p className="pt-3">Level1, Wafi residence - Oud Metha Rd<br/> Umm Hurair 2 - Dubai, UAE</p>
+                <p className="pt-3">
+                  Level1, Wafi residence - Oud Metha Rd
+                  <br /> Umm Hurair 2 - Dubai, UAE
+                </p>
               </div>
             </div>
           </div>
@@ -310,62 +349,83 @@ function Header() {
       </div>
 
       {/* get free visa pop up*/}
-        {isVisaOpen &&
-          <div className="fixed w-full h-screen bg-[#000000a1] backdrop-blur-[2px] top-0 left-0 z-[9999]">
-            <div className={`fixed top-[50%] left-[50%] w-[85%] sm:w-[80%] md:w-[60%] -translate-x-[50%] -translate-y-[50%] bg-white rounded-lg z-[9999]`}>
-              <IoIosCloseCircleOutline onClick={visatogglePopup} className="text-2xl text-visaclr absolute top-3 right-3"/>
-              <div className="w-full h-full p-5 py-10 ">
-                <h1 className="text-visaclr font-PoppinsSemibold text-center pb-5 text-lg capitalize">get free visa consultation</h1>
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">
-                    <div className="relative">
-                      <input
-                      className="border border-gray-300 p-2 w-full pl-8 rounded-sm outline-none"
-                      type="text"
-                      placeholder="Name"
-                      name="customerName"
-                      value={formData.customerName}
-                      onChange={handleChange} // Bind change handler
-                      required
-                      />
-                       <AiOutlineUser className="absolute top-2.5 left-2 text-lg text-gray-700" />
-                    </div>
-                    <div className="relative">
-                      <input
-                      className="border border-gray-300 p-2 pl-[75px] w-full rounded-sm outline-none"
-                      type="tel"
-                      inputMode="numeric"
-                      placeholder="58 550 3940"
-                      pattern="[0-9]{9}"
-                      title="Please enter a 9-digit number" 
-                      name="mobileNo"
-                      value={formData.mobileNo}
-                      onChange={handleChange} // Bind change handler
-                      required
-                      />
-                        <p className="absolute top-[7px] left-8 chfont font-medium">+971</p>
-                       <HiOutlineDevicePhoneMobile className="absolute top-2.5 left-2 text-lg text-gray-700" />
-                    </div>
-                    <div className="relative">
-                    <select className="h-10 w-full pl-8 text-base outline-none border appearance-none"
-                        name="countryId"
-                        value={formData.countryId}
-                        onChange={handleChange} // Bind change handler
-                        required>
-                        <option value="">Select a location</option>
-                              {countries.map((country) => (
-                                <option key={country.countryId} value={country.countryId}>
-                                  {country.countryName}
-                                </option>
-                              ))}
-                        </select>
-                        <IoLocationOutline className="absolute top-2.5 left-2 text-lg text-gray-700" />
-                    </div>
-                    <button className="text-center w-full bg-visaclr h-10 text-white rounded-md mt-2" type="submit">Submit</button>
-                  </form>
-              </div>
+      {isVisaOpen && (
+        <div className="fixed w-full h-screen bg-[#000000a1] backdrop-blur-[2px] top-0 left-0 z-[9999]">
+          <div
+            className={`fixed top-[50%] left-[50%] w-[85%] sm:w-[80%] md:w-[60%] -translate-x-[50%] -translate-y-[50%] bg-white rounded-lg z-[9999]`}
+          >
+            <IoIosCloseCircleOutline
+              onClick={visatogglePopup}
+              className="text-2xl text-visaclr absolute top-3 right-3"
+            />
+            <div className="w-full h-full p-5 py-10 ">
+              <h1 className="text-visaclr font-PoppinsSemibold text-center pb-5 text-lg capitalize">
+                get free visa consultation
+              </h1>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">
+                <div className="relative">
+                  <input
+                    className="border border-gray-300 p-2 w-full pl-8 rounded-sm outline-none"
+                    type="text"
+                    placeholder="Name"
+                    name="customerName"
+                    value={formData.customerName}
+                    onChange={handleChange} // Bind change handler
+                    required
+                  />
+                  <AiOutlineUser className="absolute top-2.5 left-2 text-lg text-gray-700" />
+                </div>
+                <div className="relative">
+                  <input
+                    className="border border-gray-300 p-2 pl-[75px] w-full rounded-sm outline-none"
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="58 550 3940"
+                    pattern="[0-9]{9}"
+                    title="Please enter a 9-digit number"
+                    name="mobileNo"
+                    value={formData.mobileNo}
+                    onChange={handleChange} // Bind change handler
+                    required
+                  />
+                  <p className="absolute top-[7px] left-8 chfont font-medium">
+                    +971
+                  </p>
+                  <HiOutlineDevicePhoneMobile className="absolute top-2.5 left-2 text-lg text-gray-700" />
+                </div>
+                <div className="relative">
+                  <label htmlFor="country-select" className="sr-only">
+                    Select your location
+                  </label>
+                  <select
+                    className="h-10 w-full pl-8 text-base outline-none border appearance-none"
+                    name="countryId"
+                    value={formData.countryId}
+                    onChange={handleChange} // Bind change handler
+                    required
+                    id="country-select"
+                    aria-required="true"
+                  >
+                    <option value="">Select a location</option>
+                    {countries.map((country) => (
+                      <option key={country.countryId} value={country.countryId}>
+                        {country.countryName}
+                      </option>
+                    ))}
+                  </select>
+                  <IoLocationOutline className="absolute top-2.5 left-2 text-lg text-gray-700" />
+                </div>
+                <button
+                  className="text-center w-full bg-visaclr h-10 text-white rounded-md mt-2"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
-          </div>
-        }
+        </div>
+      )}
     </>
   );
 }

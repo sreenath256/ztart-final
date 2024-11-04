@@ -104,7 +104,7 @@ const ManageVisas = () => {
                 </td>
                 <td className="px-4 py-3 border-b space-x-2">
                   <button
-                    className="text-blue-500 hover:bg-gray-100 p-2 rounded"
+                    className="text-visaclr hover:bg-gray-100 p-2 rounded"
                     aria-label="Edit Visa"
                   >
                     <Link to={`${visa.slug}/edit`}>

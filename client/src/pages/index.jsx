@@ -333,7 +333,10 @@ function Homepage() {
               isOpen ? "rotate-180" : "rotate-0"
             }`}
           >
-            <button className="lg:hidden text-gray-500 hover:text-gray-700">
+            <button
+              className="lg:hidden text-gray-500 hover:text-gray-700"
+              aria-label="Expand menu"
+            >
               <FaChevronDown />
             </button>
           </div>
@@ -395,10 +398,15 @@ function Homepage() {
           content="Best visa services in Dubai UAE. Expert visa agents in Dubai. We simplify tourist and business visa service in Dubai UAE ensuring a smooth and Steady process."
         />
       </Helmet>
-      <main className="w-11/12 md:w-11/12 xl:w-9/12 mx-auto h-full pt-5">
+      <main className="w-12/12 md:w-11/12 xl:w-9/12 mx-auto h-full pt-5  ">
         {/* Banner */}
-        <section className="px-2 md:px-0 w-full   rounded-xl   ">
-          <div className="bg-[url(https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_auto,q_auto,f_auto/tinted_1_hgph8p.webp)]   h-[50vh] pt-10 md:h-4/6 md:py-24 items-center  flex flex-col  justify-center rounded-3xl bg-cover bg-center pb-5 text-white ">
+        <section className="  md:px-0 w-full   rounded-xl   ">
+          <link
+            rel="preload"
+            as="image"
+            href="https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto,f_auto/tinted_1_hgph8p.webp"
+          />
+          <div className="bg-[url(https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto,f_auto/tinted_1_hgph8p.webp)]   h-[50vh] pt-10 md:h-4/6 md:py-24 items-center  flex flex-col  justify-center md:rounded-3xl bg-cover bg-center pb-5 text-white ">
             <div className="pt-8  lg:pt-10 text-center xs:text-[40px]  sm:text-[47px] md:text-5xl lg:text-7xl xl:tracking-wider space-y-4 font-PoppinsBold xl:font-PoppinsBold ">
               <h1 className="text-2xl leading-4 md:leading-8 md:text-5xl ">
                 Get Ready To Travel
@@ -419,9 +427,10 @@ function Homepage() {
             </p>
             <div className="w-full flex justify-center items-center pt-4">
               <button
-                className=" text-sm px-2 text-nowrap md:w-fit md:text-base font-PoppinsMedium md:px-10 lg:px-5 py-2 lg:py-3 capitalize border border-visaclr rounded-full text-visaclr bg-white hover:bg-visaclr hover:text-white duration-200"
+                className=" text-sm px-2 text-nowrap md:w-fit md:text-base font-PoppinsMedium md:px-10 lg:px-5 py-2 lg:py-3 capitalize border border-visaclr rounded-full text-visaclr bg-white hover:bg-visaclr hover:text-white duration-200  text-nowrap"
                 type="submit"
                 onClick={() => navigate("/contact")}
+                aria-label="Get Your Visa Today"
               >
                 Get Your Visa Today
               </button>
@@ -493,7 +502,12 @@ function Homepage() {
                   <HiOutlineDevicePhoneMobile className="absolute top-4 left-3 text-2xl text-gray-700" />
                 </div>
                 <div className="relative w-full">
+                  <label htmlFor="country-select" className="sr-only">
+                    Select your location
+                  </label>
                   <select
+                    id="country-select"
+                    aria-required="true"
                     className="w-fit py-4 lg:py-2.5 pl-11 outline-none appearance-none"
                     name="countryId"
                     value={formData.countryId}
@@ -560,7 +574,12 @@ function Homepage() {
                 <HiOutlineDevicePhoneMobile className="absolute left-4 md:left-2 lg:left-1 top-[19px] lg:top-2 text-lg lg:text-2xl text-gray-700" />
               </div>
               <div className="relative  w-full">
+                <label htmlFor="country-select" className="sr-only">
+                  Select your location
+                </label>
                 <select
+                  id="country-select"
+                  aria-required="true"
                   className="w-full focus:outline-none py-4 lg:py-2.5 px-10 md:px-9 lg:px-10 appearance-none "
                   name="countryId"
                   value={formData.countryId}
@@ -589,11 +608,11 @@ function Homepage() {
         {/*  */}
 
         {/* carousal */}
-        <section className="py-20 lg:py-24">
+        <section className="py-20 px-5 md:px-0 lg:py-24">
           <TravelCarousal />
         </section>
 
-        <section className="py-8 md:py-16 px-4">
+        <section className="py-8 md:py-16 px-5">
           <div className="max-w-6xl mx-auto">
             <h3 className="text-xl lg:text-5xl font-PoppinsExtraBold text-center capitalize">
               Why Ztartvisa is Your
@@ -634,7 +653,7 @@ function Homepage() {
 
         {/* <Feedback /> */}
 
-        <section className="flex flex-col gap-3 mt-14 ">
+        <section className="flex flex-col gap-3 mt-14 px-5 md:px-0 ">
           <h3 className="text-xl lg:text-5xl font-PoppinsExtraBold text-center capitalize">
             Your journey with
             <br />{" "}
@@ -645,8 +664,9 @@ function Homepage() {
           {/* <img loading='lazy' className='rounded-2xl h-52 lg:h-[24rem] w-full object-cover mt-3' src={Grp4} alt="image" /> */}
           {/* // add mt-5 when add image */}
           <div className="mt-10 space-y-3">
-            {highlights.map((highlight) => (
+            {highlights.map((highlight, i) => (
               <HighLights
+                key={i}
                 title={highlight.title}
                 description={highlight.description}
               />
@@ -829,11 +849,11 @@ function Homepage() {
           </div>
         </section>
 
-        <section className="pb-10">
+        <section className="pb-10 px-5 md:px-0">
           <Testimonial />
         </section>
 
-        <section className="flex flex-col lg:flex-row gap-10  lg:py-16">
+        <section className="flex flex-col lg:flex-row gap-10  lg:py-16 px-5 md:px-0">
           <div className="flex-1 flex items-center text-center lg:text-left lg:items-start flex-col justify-center gap-7">
             <h5 className="text-2xl lg:text-4xl font-PoppinsExtraBold capitalize">
               Current Visa Trends and Requirements.
@@ -873,7 +893,7 @@ function Homepage() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 pb-20 pt-20">
+        <section className="grid grid-cols-1 md:grid-cols-3 pb-20 pt-20 px-5 md:px-0">
           <div className="h-full flex flex-col justify-center space-y-3">
             <h5 className="text-2xl lg:text-4xl font-PoppinsExtraBold capitalize text-center xl:text-left">
               Frequently asked questions?
@@ -913,10 +933,12 @@ function Homepage() {
           </div>
           <div className="flex-1">
             <img
-              className="w-full md:h-96 lg:h-full object-cover rounded-t-2xl lg:rounded-t-none lg:rounded-tr-3xl lg:rounded-br-3xl"
-              src={relaxImg2}
+              className="w-full md:h-96 lg:h-full object-cover md:rounded-t-2xl lg:rounded-t-none lg:rounded-tr-3xl lg:rounded-br-3xl"
+              src={relaxImg2} // Change this to the appropriate image size or use srcset
               alt="isa Agents In Dubai"
-              loading="Visa Services In Dubai"
+              loading="lazy" // Use "lazy" loading for better performance
+              width="800" // Set an explicit width
+              height="600" // Set an explicit height
             />
           </div>
         </section>
@@ -955,7 +977,7 @@ const BenefitPopup = ({ benefit, onClose }) => (
         {benefit.title}
       </h3>
       <p className="tpl-6 text-sm lg:text-base pt-3">{benefit.description}</p>
-      <div className="flex items-center text-indigo-600"></div>
+      <div className="flex items-center text-visaclrhvr"></div>
     </div>
   </div>
   //   <div className="bg-white rounded-lg p-6 w-full max-w-md">
@@ -983,7 +1005,10 @@ const BenefitCard = ({ toggleBenefit, benefit, index, isMobile }) => (
         </h3>
       </div>
     </div>
-    <button className="md:hidden text-gray-500 hover:text-gray-700">
+    <button
+      className="md:hidden text-gray-500 hover:text-gray-700"
+      aria-label="benefits-dropdown"
+    >
       <FaChevronDown />
     </button>
     <p className="hidden md:block text-sm lg:text-sm pt-3">

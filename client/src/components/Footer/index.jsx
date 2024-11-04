@@ -55,9 +55,6 @@ function Footer() {
   // Check if the current pathname is included in the allowedPages array
   const shouldShowDiv = allowedPages.includes(location.pathname);
 
-  
-
-
   return (
     <main className="">
       <footer className=" w-11/12 lg:w-9/12 py-10 mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4  lg:place-content-start text-left gap-10  lg:gap-0">
@@ -67,42 +64,68 @@ function Footer() {
             <a
               href="https://api.whatsapp.com/send?phone=971544404197"
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat with us on WhatsApp"
               className="bg-visaclr shadow-sm shadow-zinc-600 rounded-full h-[48px] w-[48px] cursor-pointer hover:scale-105 duration-200 grid place-items-center"
             >
-              <IoLogoWhatsapp className="text-white text-[27px]" />
+              <IoLogoWhatsapp
+                className="text-white text-[27px]"
+                aria-hidden="true"
+              />
               {/* scale-x-[-1] inline-block */}
             </a>
           </div>
         )}
         <div className="col-span-2 md:col-span-1">
           <Link to="/">
-            <img className="h-7 lg:h-9" src={VisaLogo} alt="logo" />
+            <img
+              className="h-7 lg:h-9 object-contain"
+              src={VisaLogo}
+              alt="logo"
+              width={100} // Replace with the actual width
+              height={50} // Replace with the actual height
+            />
           </Link>
           <ul className="text-visaclr flex gap-3 mt-5 ml-2 text-2xl">
             <li className="hover:-translate-y-1 duration-200">
-              <a href="https://www.instagram.com/ztartvisa" target="_blank">
-                <FaInstagram />
+              <a
+                href="https://www.instagram.com/ztartvisa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Instagram"
+                className="inline-flex items-center justify-center"
+              >
+                <FaInstagram aria-hidden="true" role="img" />
               </a>
             </li>
             <li className="hover:-translate-y-1 duration-200">
-              <a href="http://www.youtube.com/@ztartvisa" target="_blank">
-                <FaYoutube />
+              <a
+                href="http://www.youtube.com/@ztartvisa"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Subscribe us on Youtube"
+              >
+                <FaYoutube aria-hidden="true" role="img" />
               </a>
             </li>
             <li className="hover:-translate-y-1 duration-200">
               <a
                 href="https://www.linkedin.com/company/ztartvisa/?originalSubdomain=ae"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Linkedin"
               >
-                <FaLinkedin />
+                <FaLinkedin aria-hidden="true" role="img" />
               </a>
             </li>
             <li className="hover:-translate-y-1 duration-200">
               <a
                 href="https://x.com/ztartvisa/status/1772161296835936545"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Threads"
               >
-                <FaThreads />
+                <FaThreads aria-hidden="true" role="img" />
               </a>
             </li>
           </ul>
@@ -148,7 +171,7 @@ function Footer() {
           <h2 className="text-base lg:text-lg font-PoppinsSemibold">Visas</h2>
           <ul className="text-base pt-5 grid grid-cols-2 gap-2 capitalize">
             {visas?.slice(0, 9).map((visa, i) => (
-              <p
+              <li
                 className="cursor-pointer"
                 key={i}
                 onClick={() => {
@@ -156,7 +179,7 @@ function Footer() {
                 }}
               >
                 {visa?.country}
-              </p>
+              </li>
             ))}
           </ul>
         </div>

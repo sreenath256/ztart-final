@@ -23,7 +23,7 @@ import LandingPage from "./pages/Landing";
 import BlogInner from "./pages/Blogs/inner";
 import Contact from "./pages/Contact/index";
 import AdminLayout from "./layouts/AdminLayout";
-import { Dashboard } from "./admin/pages/DashBoard";
+import  Dashboard  from "./admin/pages/DashBoard";
 import AddVisas from "./admin/pages/AddVisas";
 import CreateBlog from "./admin/components/CreateBlog";
 import LoginPage from "./admin/pages/Login";
@@ -32,6 +32,8 @@ import ManageVisas from "./admin/pages/ManageVisas";
 import EditBlogPage from "./admin/pages/EditBlog";
 import EditVisaPage from "./admin/pages/EditVisa";
 import VisaGrid from "./pages/visas/VisaGrid";
+
+
 
 // const Home = lazy(() => import("./pages/index"));
 // const AboutUs = lazy(() => import("./pages/Aboutus/index"));
@@ -42,6 +44,7 @@ import VisaGrid from "./pages/visas/VisaGrid";
 // const Blog = lazy(() => import("./pages/Blogs/index"));
 // const BlogInner = lazy(() => import("./pages/Blogs/inner"));
 // const LandingPage = lazy(() => import("./pages/Landing"));
+
 
 function App() {
   const [admin, setAdmin] = useState(false);
@@ -61,6 +64,7 @@ function App() {
   return (
     <>
       <div>
+      <ToastContainer />
         <Routes>
           {admin ? (
             <Route element={<AdminLayout />}>

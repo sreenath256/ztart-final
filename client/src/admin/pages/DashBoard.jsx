@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <div>
       <h2 className="text-xl font-bold">Dashboard</h2>
@@ -8,4 +8,5 @@ export const Dashboard = () => {
     </div>
   );
 };
-    
+
+export default Dashboard;

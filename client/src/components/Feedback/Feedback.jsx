@@ -36,7 +36,7 @@ const Feedback = () => {
           </div>
           {/* <a 
             href="#" 
-            className="mt-6 bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-indigo-700 transition-colors duration-300 inline-flex items-center"
+            className="mt-6 bg-visaclrhvr text-white px-8 py-3 rounded-full font-semibold hover:bg-indigo-700 transition-colors duration-300 inline-flex items-center"
           >
             Read Our Reviews
             <FaStar className="ml-2" size={20} fill="currentColor" />

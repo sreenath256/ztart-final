@@ -311,7 +311,12 @@ function LandingPage() {
                 <HiOutlineDevicePhoneMobile className="absolute left-4 md:left-2 lg:left-1 top-[19px] lg:top-3 text-lg lg:text-2xl text-gray-700" />
               </div>
               <div className="relative w-full ">
+              <label htmlFor="country-select" className="sr-only">
+                    Select your location
+                  </label>
                 <select
+                 id="country-select"
+                    aria-required="true"
                   className="w-full focus:outline-none py-4 lg:py-2.5 px-10 md:px-9 lg:px-10 appearance-none border rounded-lg"
                   name="countryId"
                   value={formData.countryId}

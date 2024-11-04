@@ -5,8 +5,7 @@ import {
   MdCloudUpload,
   MdClose,
 } from "react-icons/md";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import axios from "axios"; // Import axios for API calls
 import { useNavigate } from "react-router-dom";
 import { vars } from "../../constents/Api";
@@ -16,8 +15,11 @@ import "react-quill/dist/quill.snow.css";
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null); // image file
+  const [imageAlt, setImageAlt] = useState(null); // image alt
   const [imagePreview, setImagePreview] = useState(""); // image preview URL
   const [faqs, setFaqs] = useState([{ question: "", answer: "" }]);
   const [loading, setLoading] = useState(false); // For button state
@@ -103,6 +105,9 @@ const CreateBlog = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("slug", slug);
+    formData.append("metaTitle", metaTitle);
+    formData.append("imageAlt", imageAlt);
+    formData.append("metaDescription", metaDescription);
     formData.append("description", description);
     formData.append("file", image); // Image file
     formData.append("faqs", JSON.stringify(faqs)); // Convert FAQs to string
@@ -149,7 +154,7 @@ const CreateBlog = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
             required
           />
         </div>
@@ -161,7 +166,7 @@ const CreateBlog = () => {
             type="text"
             value={slug}
             onChange={handleSlugChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
             required
           />
           {slug && (
@@ -169,6 +174,32 @@ const CreateBlog = () => {
               Generated Slug: {slug}
             </p>
           )}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Meta Title
+          </label>
+          <input
+            type="text"
+            placeholder="meta title..."
+            value={metaTitle}
+            onChange={(e) => setMetaTitle(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Meta Description
+          </label>
+          <input
+            type="text"
+            placeholder="meta description..."
+            value={metaDescription}
+            onChange={(e) => setMetaDescription(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+            required
+          />
         </div>
 
         <div>
@@ -182,7 +213,7 @@ const CreateBlog = () => {
                 <div className="flex text-sm text-gray-600">
                   <label
                     htmlFor="file-upload"
-                    className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                    className="relative cursor-pointer bg-white rounded-md font-medium text-visaclrhvr hover:text-visaclr focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-visaclr"
                   >
                     <span>Upload a file</span>
                     <input
@@ -222,6 +253,18 @@ const CreateBlog = () => {
           )}
         </div>
       </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Image alt
+        </label>
+        <input
+          type="text"
+          value={imageAlt}
+          onChange={(e) => setImageAlt(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+          required
+        />
+      </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -249,12 +292,7 @@ const CreateBlog = () => {
           />
         </div>
 
-        {/* <CKEditor
-          editor={ClassicEditor}
-          data={description}
-          onChange={(event, editor) => setDescription(editor.getData())}
-          required
-        /> */}
+     
       </div>
 
       <div>
@@ -273,7 +311,7 @@ const CreateBlog = () => {
                 handleFaqChange(index, "question", e.target.value)
               }
               placeholder="FAQ Question"
-              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
               required
             />
             <textarea
@@ -281,7 +319,7 @@ const CreateBlog = () => {
               onChange={(e) => handleFaqChange(index, "answer", e.target.value)}
               placeholder="FAQ Answer"
               rows={2}
-              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
               required
             />
             <button

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams for URL parameters
 import axios from "axios";
@@ -11,12 +10,14 @@ import "react-quill/dist/quill.snow.css";
 const EditBlogForm = () => {
   const { id } = useParams(); // Get blogId from the URL
   const [title, setTitle] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [faqs, setFaqs] = useState([]);
   const [imageFile, setImageFile] = useState(null); // Store the selected image file
   const navigate = useNavigate();
-
 
   const modules = {
     toolbar: [
@@ -59,13 +60,9 @@ const EditBlogForm = () => {
     "direction",
     "code-block",
   ];
-  
-  
-  
+
   // Fetch the blog content on component mount
   useEffect(() => {
-    let isMounted = true; // Flag to prevent state updates on unmounted component
-
     const fetchBlog = async () => {
       try {
         const response = await axios.get(
@@ -73,24 +70,20 @@ const EditBlogForm = () => {
         );
         console.log(response.data); // Log the entire response
 
-        if (isMounted) {
-          // Only update state if the component is still mounted
-          const blogData = response?.data.data;
-          setTitle(blogData.title);
-          setImage(blogData.imageURL);
-          setDescription(blogData.description);
-          setFaqs(blogData.faqs || []);
-        }
+        const blogData = response?.data.data;
+        setTitle(blogData.title);
+        setMetaTitle(blogData.metaTitle);
+        setMetaDescription(blogData.metaDescription);
+        setImageAlt(blogData.imageAlt);
+        setImage(blogData.imageURL);
+        setDescription(blogData.description);
+        setFaqs(blogData.faqs || []);
       } catch (error) {
         console.error("Error fetching blog content:", error);
       }
     };
 
     fetchBlog();
-
-    return () => {
-      isMounted = false; // Cleanup flag when component unmounts
-    };
   }, [id]);
 
   const handleAddFaq = () => {
@@ -109,9 +102,13 @@ const EditBlogForm = () => {
   };
 
   const handleSave = async () => {
+
     const updatedData = {
       title,
       description,
+      metaTitle,
+      metaDescription,
+      imageAlt,
       faqs,
       imageURL: image,
     };
@@ -171,6 +168,36 @@ const EditBlogForm = () => {
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
+      <div className="mb-4">
+        <label
+          htmlFor="metaTitle"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Meta Title
+        </label>
+        <input
+          type="text"
+          id="metaTitle"
+          value={metaTitle}
+          onChange={(e) => setMetaTitle(e.target.value)}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="metaDescription"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Meta Description
+        </label>
+        <input
+          type="text"
+          id="metaDescription"
+          value={metaDescription}
+          onChange={(e) => setMetaDescription(e.target.value)}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
 
       <div className="mb-4">
         <label
@@ -179,13 +206,14 @@ const EditBlogForm = () => {
         >
           Image
         </label>
-        {image && (
+        {
+          image && 
           <img
             src={image} // Display the uploaded image
             alt="Selected"
             className="mt-1 w-full h-48 object-contain rounded-md"
           />
-        )}
+        }
         <input
           type="file"
           id="image"
@@ -201,7 +229,7 @@ const EditBlogForm = () => {
         >
           Description
         </label>
-        
+
         <style jsx global>{`
           .ql-editor {
             min-height: 200px;
@@ -260,7 +288,7 @@ const EditBlogForm = () => {
         ))}
         <button
           onClick={handleAddFaq}
-          className="text-indigo-600 hover:text-indigo-800"
+          className="text-visaclrhvr hover:text-indigo-800"
         >
           <MdAddCircle className="inline mr-1" /> Add FAQ
         </button>
@@ -268,7 +296,7 @@ const EditBlogForm = () => {
 
       <button
         onClick={handleSave}
-        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-indigo-500 focus:ring-opacity-50"
+        className="w-full bg-visaclrhvr text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-visaclr focus:ring-opacity-50"
       >
         Save
       </button>

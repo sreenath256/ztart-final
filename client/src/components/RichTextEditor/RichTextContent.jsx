@@ -12,7 +12,7 @@ const RichTextContent = ({ content }) => {
         prose-ul:ml-4 prose-ul:mt-2 prose-ul:mb-4
         prose-li:mt-1 prose-li:mb-1
         prose-strong:font-PoppinsSemibold
-        prose-a:text-blue-600 prose-a:font-PoppinsMedium hover:prose-a:text-blue-800
+        prose-a:text-visaclr prose-a:font-PoppinsMedium hover:prose-a:text-visaclrhvr
         prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:italic
         prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded
         prose-pre:bg-gray-800 prose-pre:text-white prose-pre:p-4 prose-pre:rounded

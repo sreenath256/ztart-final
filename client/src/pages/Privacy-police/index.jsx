@@ -75,7 +75,7 @@ handled and forwarded to the relevant authorities.</li>
                 <li>Object to how we process your data</li>
                 <li>Request that we transfer your data to another service provider</li>
             </ul>
-            <p>If you wish to exercise any of these rights, please contact us at <a className='text-blue-500 hover:underline' href="mailto:hello@ztartvisa.com">hello@ztartvisa.com</a></p>
+            <p>If you wish to exercise any of these rights, please contact us at <a className='text-visaclr hover:underline' href="mailto:hello@ztartvisa.com">hello@ztartvisa.com</a></p>
             <h4 className='text-lg font-PoppinsSemibold'>6. Third-Party Links</h4>
             <p>Our website does not contain links to other websites. Therefore, we are
                 not responsible for the privacy practices of any external sites. If you
@@ -96,8 +96,8 @@ your information and ensure compliance with any new requirements.</p>
             <h4 className='text-lg font-PoppinsSemibold'>9. Contact Us</h4>
             <p>If you have any questions about this Privacy Policy, please feel free to contact us:</p>
             <ul className='list-disc ml-4 capitalize'>
-                <li>Email: <a className='text-blue-500 hover:underline' href="mailto:hello@ztartvisa.com">hello@ztartvisa.com</a></li>
-                <li>Phone: <a className='text-blue-500 hover:underline' href="tel:97145282118">+97145282118</a></li>
+                <li>Email: <a className='text-visaclr hover:underline' href="mailto:hello@ztartvisa.com">hello@ztartvisa.com</a></li>
+                <li>Phone: <a className='text-visaclr hover:underline' href="tel:97145282118">+97145282118</a></li>
                 <li>Address: Level1, Wafi residence, Oud Metha Road, Umm Hurair 2, Dubai, UAE.</li>
             </ul>
             <h4 className='text-lg font-PoppinsSemibold'>Disclaimer</h4>

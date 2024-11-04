@@ -4,16 +4,15 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import { vars } from "../../constents/Api";
 import { Loader } from "../../components";
+import RichTextContent from "../../components/RichTextEditor/RichTextContent";
 
 const BlogInner = () => {
   const { id } = useParams(); // Get the slug from the URL
   const [bdata, setBdata] = useState({}); // State to hold blog data
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
-  
 
   useEffect(() => {
-
     const fetchBlogData = async () => {
       try {
         const response = await axios.get(
@@ -34,7 +33,7 @@ const BlogInner = () => {
   }, [id]); // Dependency array with title to refetch if it changes
 
   if (loading) {
-    return <Loader/> // Loading state
+    return <Loader />; // Loading state
   }
 
   if (bdata.length === 0) {
@@ -65,18 +64,22 @@ const BlogInner = () => {
   return (
     <>
       <Helmet>
-        <title>{bdata?.title}</title>
-        <link rel="canonical" href={`https://ztartvisa.com//blogs/${bdata?._id}`} />
+        <title>{bdata?.metaTitle}</title>
+        <link
+          rel="canonical"
+          href={`https://ztartvisa.com/blogs/${bdata?.slug}`}
+        />
+        <meta name="description" content={bdata.metaDescription} />
       </Helmet>
       <div className="w-11/12 md:w-11/12 xl:w-9/12 mx-auto h-full py-10">
         <div className="flex flex-col gap-3">
-          <h1 className="text-2xl xl:text-4xl font-PoppinsBold capitalize">
+          <h1 className="text-2xl xl:text-4xl font-PoppinsBold ">
             {bdata.title}
           </h1>
           <img
             className="object-cover object-left xl:object-center h-52 md:h-full xl:h-[450px] w-full"
             src={bdata?.imageURL} // Assuming this is the image URL
-            alt={bdata?.title}
+            alt={bdata?.imageAlt}
             loading="lazy"
           />
           <Link to="/contact">
@@ -84,10 +87,7 @@ const BlogInner = () => {
               Apply Now
             </button>
           </Link>
-          <div
-            className="prose-h4:mt-2 prose-h3:mb-2 prose-a:hover:text-blue-700 prose-a:hover:underline prose-h3:mt-3 prose-ul:mb-3 prose-ul:ml-3 flex flex-col gap-5 prose-h1:text-2xl prose-h1:font-bold prose-h1:capitalize prose-h3:text-xl prose-h3:font-PoppinsBold prose-li:list-disc prose-h3:capitalize prose-h4:font-bold prose-p:text-base prose-ul:mt-1 prose-li:pt-1 prose-a:font-extrabold"
-            dangerouslySetInnerHTML={{ __html: bdata.description }} // Assuming this is the blog content
-          />
+          <RichTextContent content={bdata.description} />
           <Link to="/">
             <button className="bg-visaclr text-white h-10 xl:h-11 px-6 capitalize text-sm rounded-full hover:bg-visaclrhvr w-fit my-2 font-PoppinsSemibold">
               Explore Now

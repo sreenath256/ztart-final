@@ -1,23 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MdAddCircle,
   MdRemoveCircle,
   MdCloudUpload,
   MdClose,
 } from "react-icons/md";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { vars } from "../../constents/Api";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-toastify";
 
 const CreateVisasForm = () => {
   const [title, setTitle] = useState("");
   const [country, setCountry] = useState("");
   const [slug, setSlug] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [description, setDescription] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
   const [image, setImage] = useState(null); // image file
   const [imagePreview, setImagePreview] = useState(""); // image preview URL
   const [about, setAbout] = useState("");
@@ -113,8 +116,8 @@ const CreateVisasForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
 
     // Create a FormData object
     const formData = new FormData();
@@ -124,6 +127,9 @@ const CreateVisasForm = () => {
     formData.append("title", title);
     formData.append("slug", slug);
     formData.append("description", description);
+    formData.append("metaTitle", metaDescription);
+    formData.append("metaDescription", metaDescription);
+    formData.append("imageAlt", imageAlt);
     formData.append("about", about);
 
     if (image) {
@@ -149,12 +155,17 @@ const CreateVisasForm = () => {
         navigate("/manage-visas");
         // Handle success, like redirecting or showing a success message
         console.log("Visa created successfully", response.data);
+        toast.success("Visa created successfully");
       } else {
         // Handle errors
         console.error("Error creating visa", response.data);
+        setIsLoading(false);
+        toast.error("Error creating visa");
       }
     } catch (error) {
       console.error("API call failed", error);
+      toast.error("Error creating visa, slug is unique");
+      setIsLoading(false);
     }
   };
 
@@ -179,7 +190,7 @@ const CreateVisasForm = () => {
             type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
             required
           />
         </div>
@@ -191,7 +202,34 @@ const CreateVisasForm = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Meta title
+          </label>
+          <input
+            type="text"
+            value={metaTitle}
+            placeholder="Meta Title..."
+            onChange={(e) => setMetaTitle(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Meta Description
+          </label>
+          <input
+            type="text"
+            placeholder="Meta Description..."
+            value={metaDescription}
+            onChange={(e) => setMetaDescription(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
             required
           />
         </div>
@@ -204,7 +242,7 @@ const CreateVisasForm = () => {
             type="text"
             value={slug}
             onChange={handleSlugChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
             required
           />
           {slug && (
@@ -225,7 +263,7 @@ const CreateVisasForm = () => {
                 <div className="flex text-sm text-gray-600">
                   <label
                     htmlFor="file-upload"
-                    className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                    className="relative cursor-pointer bg-white rounded-md font-medium text-visaclrhvr hover:text-visaclr focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-visaclr"
                   >
                     <span>Upload a file</span>
                     <input
@@ -265,7 +303,18 @@ const CreateVisasForm = () => {
           )}
         </div>
       </div>
-
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Image alt
+        </label>
+        <input
+          type="text"
+          value={imageAlt}
+          onChange={(e) => setImageAlt(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
+          required
+        />
+      </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Description
@@ -274,7 +323,7 @@ const CreateVisasForm = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
           required
         />
       </div>
@@ -355,7 +404,7 @@ const CreateVisasForm = () => {
                 handleFaqChange(index, "question", e.target.value)
               }
               placeholder="FAQ Question"
-              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
               required
             />
 
@@ -367,7 +416,7 @@ const CreateVisasForm = () => {
                   handleFaqChange(index, "answer", e.target.value)
                 }
                 placeholder="FAQ Answer"
-                className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
                 required
               />
             </div>
