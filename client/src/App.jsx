@@ -50,6 +50,7 @@ function App() {
   const [admin, setAdmin] = useState(false);
   // const [admin, setAdmin] = useState(false);
 
+
   useEffect(() => {
     // Check if user data exists in local storage
     const userData = localStorage.getItem('user');

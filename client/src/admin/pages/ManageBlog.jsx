@@ -96,7 +96,7 @@ const ManageBlogs = () => {
             {Blogs.length === 0 ? (
               <p>No data found</p>
             ) : (
-              Blogs?.map((Blog) => (
+              Blogs?.reverse().map((Blog) => (
                 <tr key={Blog._id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 border-b">
                     <img
@@ -109,14 +109,14 @@ const ManageBlogs = () => {
                     {Blog?.title}
                   </td>
                   <td className="px-4 py-3 border-b space-x-2">
-                    <button
-                      className="text-visaclr hover:bg-gray-100 p-2 rounded"
-                      aria-label="Edit Blog"
-                    >
-                      <Link to={`${Blog.slug}/edit`}>
+                    <Link to={`${Blog.slug}/edit`}>
+                      <button
+                        className="text-visaclr hover:bg-gray-100 p-2 rounded"
+                        aria-label="Edit Blog"
+                      >
                         <MdEdit size={20} />
-                      </Link>
-                    </button>
+                      </button>
+                    </Link>
                     <button
                       className="text-red-500 hover:bg-gray-100 p-2 rounded"
                       aria-label="Delete Blog"

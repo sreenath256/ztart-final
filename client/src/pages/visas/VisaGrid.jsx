@@ -11,8 +11,6 @@ const VisaGrid = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const fetchVisaData = async () => {
       try {
@@ -61,10 +59,9 @@ const VisaGrid = () => {
         <title>Best Visa Agency In Dubai, Visa Assistance In Dubai UAE</title>
         <meta
           name="description"
-          content="Best Visa Agency in Dubai: Offering expert visa assistance for tourists and businesses
- in Dubai, UAE. Trust us for a smooth and efficient visa process."
+          content="Best Visa Agency in Dubai offering expert visa assistance for tourists and businesses in Dubai, UAE. Trust us for a smooth and efficient visa process."
         />
-        <link rel="canonical" href="https://ztartvisa.com/about" />
+        <link rel="canonical" href="https://ztartvisa.com/visa" />
       </Helmet>
       <div className="container mx-auto  py-8 ">
         <h1 className=" text-2xl lg:text-6xl font-PoppinsExtraBold text-center px-3 md:px-0  mt-20 text-visaclr">
@@ -76,7 +73,7 @@ const VisaGrid = () => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {visaData.map((visa, index) => (
+          {visaData.reverse().map((visa, index) => (
             <div
               key={index}
               className="bg-white rounded-lg shadow-md overflow-hidden"
@@ -87,7 +84,7 @@ const VisaGrid = () => {
                 className="w-full h-48 sm:h-52 md:h-56 object-left-bottom object-cover cursor-pointer"
               />
               <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{visa.title}</h2>
+                <h2 className="text-xl font-semibold mb-2">{visa.country}</h2>
                 <button
                   onClick={() => navigate(`/visa/${visa.slug}`)} // Assuming `url` is part of the visa data
                   className="bg-visaclr font-PoppinsMedium px-2 text-sm py-1 rounded-lg text-white w-fit"

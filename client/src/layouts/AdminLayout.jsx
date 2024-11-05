@@ -5,6 +5,8 @@ import Header from "../admin/components/Header";
 import { MdMenu, MdClose } from "react-icons/md";
 import Navbar from "../admin/components/Navbar";
 
+// import '../../generate-sitemap.js'
+
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

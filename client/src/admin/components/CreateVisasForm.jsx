@@ -340,6 +340,7 @@ const CreateVisasForm = () => {
             <style jsx global>{`
               .ql-editor {
                 min-height: 200px;
+                max-height: 500px;
               }
               .ql-toolbar.ql-snow {
                 border-radius: 0.375rem 0.375rem 0 0;
@@ -349,6 +350,9 @@ const CreateVisasForm = () => {
               }
             `}</style>
             <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Questions
+              </label>
               <ReactQuill
                 value={q.question}
                 onChange={(value) =>
@@ -360,6 +364,9 @@ const CreateVisasForm = () => {
               />
             </div>
             <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Answers
+              </label>
               <ReactQuill
                 value={q.answer}
                 onChange={(value) =>

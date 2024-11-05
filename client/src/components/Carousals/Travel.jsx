@@ -108,7 +108,6 @@ function TravelCarousal() {
         const response = await axios.get(
           `${vars.api_url}/api/1.0/user/testimonial/testimonials`
         ); // Replace with your API endpoint
-        console.log(response);
 
         setVisaData(response.data?.data); // Assuming the response data is an array
       } catch (error) {
@@ -139,9 +138,7 @@ function TravelCarousal() {
         {...settings}
         className="travelaCarousal"
       >
-        {visaData?.map((data) => {
-          console.log(data, "asdsdfsdfdf");
-
+        {visaData?.reverse().map((data) => {
           return (
             <div
               className={`bg-[#DCE1C8] rounded-xl overflow-hidden`}

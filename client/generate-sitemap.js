@@ -2,45 +2,55 @@ import { SitemapStream } from 'sitemap';
 import { createWriteStream } from 'fs';
 import { Readable } from 'stream';
 import { streamToPromise } from 'sitemap'; // Import streamToPromise from the sitemap package
+import axios from 'axios';
 
-// Array of URLs to be included in the sitemap
-const links = [
-  { url: '/', changefreq: 'daily', priority: 1.0 },
-  { url: '/about', changefreq: 'monthly', priority: 0.7 },
-  { url: '/faq', changefreq: 'monthly', priority: 0.7 },
-  { url: '/contact', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa-consultant-in-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/privacy-policy', changefreq: 'monthly', priority: 0.7 },
-  // blog links
-  { url: '/blogs', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/applying-for-an-australian-tourist-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/best-time-to-visit-australia', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/uk-adventure-more-than-just-london', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/japan-visa-for-uae-residence-things-to-do-and-many-more', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/is-travel-insurance-must-for-international-travelers', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/how-to-get-schengen-visa-a-complete-guide-for-uae-travellers', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/a-comprehensive-guide-on-us-visa-renewal-from-uae', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/how-to-apply-for-a-turkey-tourist-visa-for-uae-residents', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/common-reasons-for-uk-visa-refusals-and-how-to-prevent-them', changefreq: 'monthly', priority: 0.7 },
-  { url: '/blogs/visa-requirements-for-popular-travel-destinations-in-2024', changefreq: 'monthly', priority: 0.7 },
-  // visa link
-  { url: '/visa/australia-visa-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/uk-visit-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/italy-visit-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/canada-tourist-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/switzerland-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/france-visa-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/spain-visa-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/turkey-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/japan-visit-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-  { url: '/visa/usa-visit-visa-from-dubai', changefreq: 'monthly', priority: 0.7 },
-];
 
-// Create a stream to write to
-const stream = new SitemapStream({ hostname: 'https://ztartvisa.com' });
+async function generateSitemap() {
 
-// Stream the URLs to the stream
-Readable.from(links).pipe(stream).pipe(createWriteStream('./sitemap.xml'));
+  const baseUrl = 'http://localhost:3000'
 
-// Generate the sitemap
-streamToPromise(stream).then(() => console.log('Sitemap created successfully'));
+  try {
+    // Fetch dynamic data
+    const [blogsResponse, visasResponse] = await Promise.all([
+      axios.get(`${baseUrl}/api/1.0/user/blog/get-blog-slug`),   // Replace with your blogs pages API endpoint
+      axios.get(`${baseUrl}/api/1.0/user/testimonial/get-visa-slug`)  // Replace with your visa API endpoint
+    ]);
+    // return console.log(blogsResponse.data, visasResponse.data);
+
+    const blogLinks = blogsResponse.data.data.map(blog => ({
+      url: `/blogs/${blog.slug}`,
+      changefreq: 'monthly',
+      priority: 0.7
+    }));
+
+    const visaLinks = visasResponse.data.data.map(visa => ({
+      url: `/visa/${visa.slug}`,
+      changefreq: 'monthly',
+      priority: 0.7
+    }));
+
+
+    // Combine all links
+    const links = [...blogLinks, ...visaLinks];
+
+    // Create a sitemap stream
+    const stream = new SitemapStream({ hostname: 'https://ztartvisa.com' });
+
+    // Pipe the links into the stream
+    Readable.from(links).pipe(stream).pipe(createWriteStream('./sitemap.xml'));
+
+    // Write the sitemap to a file
+    await streamToPromise(stream);
+    console.log('Sitemap created successfully!');
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+  }
+
+
+}
+
+
+
+
+// Run the function to generate the sitemap
+generateSitemap();

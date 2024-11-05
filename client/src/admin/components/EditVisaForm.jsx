@@ -290,6 +290,7 @@ const EditVisaForm = () => {
             <style jsx global>{`
               .ql-editor {
                 min-height: 200px;
+                max-height: 500px;
               }
               .ql-toolbar.ql-snow {
                 border-radius: 0.375rem 0.375rem 0 0;

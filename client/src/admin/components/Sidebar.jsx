@@ -35,9 +35,10 @@ export const Sidebar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleLogout = () => {
     // Clear user data from local storage
-    console.log("adadadadasdasdasdasd");
-    
+    console.log("Logging out...");
     localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload()    
   };
   const username = "Admin";
   const toggleDropdown = () => {

@@ -170,7 +170,7 @@ function Footer() {
         <div className="col-span-2 md:col-span-1">
           <h2 className="text-base lg:text-lg font-PoppinsSemibold">Visas</h2>
           <ul className="text-base pt-5 grid grid-cols-2 gap-2 capitalize">
-            {visas?.slice(0, 9).map((visa, i) => (
+            {visas?.slice(0, 9).reverse().map((visa, i) => (
               <li
                 className="cursor-pointer"
                 key={i}

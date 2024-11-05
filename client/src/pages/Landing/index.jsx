@@ -261,8 +261,9 @@ function LandingPage() {
   return (
     <>
       <Helmet>
-      <title>Best Visa Consultant in Dubai, Visa services in Dubai</title>
-        <meta name="description" content="Best visa services in Dubai UAE. Expert visa agents in Dubai. We simplify tourist and business visa service in Dubai UAE ensuring a smooth and Steady process." />
+      <title>Ztartvisa Your Expert Visa Consultant in Dubai
+      </title>
+        <meta name="description" content="We are the top visa consultant in Dubai, UAE, offer end-to-end visa services, handling all documentation for Tourist, Visit, Business & Schengen Visas etc" />
   <link rel="canonical" href={`https://ztartvisa.com/visa-consultant-in-dubai`} />
       </Helmet>
       <main className="w-11/12 md:w-11/12 xl:w-9/12 mx-auto h-full">

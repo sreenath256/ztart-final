@@ -16,7 +16,8 @@ const Navbar = () => {
     console.log("Logging out...");
     localStorage.removeItem("user");
     setIsDropdownOpen(!isDropdownOpen);
-    navigate("/login");
+    navigate("/");
+    window.location.reload()
   };
   return (
     <nav className="bg-white shadow-md">

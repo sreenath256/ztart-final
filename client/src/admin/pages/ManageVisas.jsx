@@ -48,17 +48,18 @@ const ManageVisas = () => {
   };
 
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   if (error) {
     return <p>{error}</p>;
   }
 
-  if(visas.length===0){
-    <div className="w-11/12 md:w-11/12 xl:w-10/12 mx-auto min-h-[60vh] flex items-center justify-center">
+  if (visas.length === 0)
+    return (
+      <div className="w-11/12 md:w-11/12 xl:w-10/12 mx-auto min-h-[60vh] flex items-center justify-center">
         <div className="flex flex-col items-center gap-6 p-8 rounded-lg bg-white shadow-xl shadow-gray-300">
-          <RiFileWarningLinec className="w-20 h-20 text-gray-400" />
+          <RiFileWarningLine className="w-20 h-20 text-gray-400" />
 
           <div className="text-center">
             <h1 className="text-2xl font-PoppinsBold mb-2">No Visa Found</h1>
@@ -68,7 +69,7 @@ const ManageVisas = () => {
           </div>
         </div>
       </div>
-  }
+    );
 
   return (
     <div className="container mx-auto">
@@ -90,7 +91,7 @@ const ManageVisas = () => {
             </tr>
           </thead>
           <tbody>
-            {visas?.map((visa) => (
+            {visas?.reverse().map((visa) => (
               <tr key={visa._id} className="hover:bg-gray-50">
                 <td className="px-4 py-3 border-b">
                   <img
@@ -103,14 +104,14 @@ const ManageVisas = () => {
                   {visa?.title}
                 </td>
                 <td className="px-4 py-3 border-b space-x-2">
+                  <Link to={`${visa.slug}/edit`}>
                   <button
                     className="text-visaclr hover:bg-gray-100 p-2 rounded"
                     aria-label="Edit Visa"
                   >
-                    <Link to={`${visa.slug}/edit`}>
                       <MdEdit size={20} />
-                    </Link>
                   </button>
+                  </Link>
                   <button
                     className="text-red-500 hover:bg-gray-100 p-2 rounded"
                     aria-label="Delete Visa"

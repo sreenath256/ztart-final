@@ -8,12 +8,12 @@ const LoginPage = ({ setAdmin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate= useNavigate()
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
-    
+
     if (email === "" || password === "") {
       setError("Both fields are required");
       return;
@@ -21,6 +21,7 @@ const LoginPage = ({ setAdmin }) => {
 
     try {
       // Perform login logic here (e.g., API call)
+      setLoading(true);
       const response = await axios.post(
         `${vars.api_url}/api/1.0/auth/login`,
         {
@@ -35,18 +36,17 @@ const LoginPage = ({ setAdmin }) => {
         }
       );
 
-      if (response?.data?.statusCode!==200) {
+      if (response?.data?.statusCode !== 200) {
         throw new Error("Login failed!"); // Handle error based on the response
       }
 
-      const data = response?.data?.data
+      const data = response?.data?.data;
 
       // Assuming your API returns an admin flag
       if (data) {
         setAdmin(true); // Update admin state in App
-        localStorage.setItem('user', JSON.stringify(response.data?.data));
-        navigate('/')
-
+        localStorage.setItem("user", JSON.stringify(response.data?.data));
+        navigate("/");
       } else {
         setError("Invalid login credentials"); // Handle invalid credentials
       }
@@ -55,8 +55,10 @@ const LoginPage = ({ setAdmin }) => {
       console.log("Logged in successfully:", data);
     } catch (err) {
       console.log(err);
-      
+
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,9 +106,13 @@ const LoginPage = ({ setAdmin }) => {
 
             <button
               type="submit"
-              className="transition duration-200 bg-[#00a39a] hover:bg-[#008d85] focus:bg-[#008d85] text-white w-full py-2.5 rounded-lg text-sm font-semibold text-center"
+              className={`transition duration-200 bg-[#00a39a] hover:bg-[#008d85] focus:bg-[#008d85] text-white w-full py-2.5 rounded-lg text-sm font-semibold text-center ${
+                loading
+                  ? "!bg-gray-400 cursor-not-allowed"
+                  : "bg-[#00a39a] hover:bg-[#15756e]"
+              } `}
             >
-              Login
+              {loading ? "Logging in" : "Login"}
             </button>
           </form>
         </div>
