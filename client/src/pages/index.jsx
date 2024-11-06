@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import {
@@ -51,6 +51,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import Feedback from "../components/Feedback/Feedback";
+
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 const benefits = [
   {
@@ -166,6 +170,12 @@ function Homepage() {
   };
 
   const [expandedBenefit, setExpandedBenefit] = useState(null);
+
+  const bannerImage = lazy(() =>
+    import(
+      "https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto:low,f_auto/tinted_1_hgph8p.webp"
+    )
+  );
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -392,21 +402,26 @@ function Homepage() {
   return (
     <>
       <Helmet>
-        <title>Best Visa Services in Dubai | Ztartvisa Dubai UAE</title>
+        <title>
+          Best Visa Services in Dubai, Schengen Visa Consultancy in Dubai
+        </title>
         <meta
           name="description"
           content="We provide best visa services in Dubai, UAE, including tourist, visit, residency visas and etc... Trust our expertise with seamless visa solutions in Dubai."
         />
       </Helmet>
-      <main className="w-12/12 md:w-11/12 xl:w-9/12 mx-auto h-full pt-5  ">
+      <main className="w-12/12 md:w-11/12 xl:w-9/12 mx-auto h-full pt-5 relative  ">
+
         {/* Banner */}
         <section className="  md:px-0 w-full   rounded-xl   ">
-          <link
-            rel="preload"
-            as="image"
-            href="https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto,f_auto/tinted_1_hgph8p.webp"
-          />
-          <div className="bg-[url(https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto,f_auto/tinted_1_hgph8p.webp)]   h-[50vh] pt-10 md:h-4/6 md:py-24 items-center  flex flex-col  justify-center md:rounded-3xl bg-cover bg-center pb-5 text-white ">
+          <div className={`   h-[50vh] pt-10 md:h-4/6 md:py-24 items-center  flex flex-col  justify-center md:rounded-3xl bg-cover bg-center pb-5 text-white `}>
+      <LazyLoadImage
+      src="https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_1200,q_auto:low,f_auto/tinted_1_hgph8p.webp"
+      effect="blur"
+      placeholderSrc="https://res.cloudinary.com/dqtrifv2l/image/upload/c_fill,w_50,q_10,f_auto/tinted_1_hgph8p.webp"
+      className="h-full w-full absolute object-cover md:h-4/6 md:rounded-3xl"
+      wrapperClassName="w-full" // For container styling
+    />
             <div className="pt-8  lg:pt-10 text-center xs:text-[40px]  sm:text-[47px] md:text-5xl lg:text-7xl xl:tracking-wider space-y-4 font-PoppinsBold xl:font-PoppinsBold ">
               <h1 className="text-2xl leading-4 md:leading-8 md:text-5xl ">
                 Get Ready To Travel

@@ -12,28 +12,28 @@ import {
   Route,
 } from "react-router-dom";
 import { Header, Footer, Loader, NotFoundPage, LandHeader } from "./components";
-import UserLayout from "./layouts/UserLayout";
-import Homepage from "./pages/index";
-import AboutUs from "./pages/Aboutus/index";
-import Faq from "./pages/Faq/index";
-import VisaInner from "./pages/visas/inner";
-import PrivacyPolicy from "./pages/Privacy-police/index";
-import Blog from "./pages/Blogs/index";
-import LandingPage from "./pages/Landing";
-import BlogInner from "./pages/Blogs/inner";
-import Contact from "./pages/Contact/index";
-import AdminLayout from "./layouts/AdminLayout";
-import  Dashboard  from "./admin/pages/DashBoard";
-import AddVisas from "./admin/pages/AddVisas";
-import CreateBlog from "./admin/components/CreateBlog";
-import LoginPage from "./admin/pages/Login";
-import ManageBlogs from "./admin/pages/ManageBlog";
-import ManageVisas from "./admin/pages/ManageVisas";
-import EditBlogPage from "./admin/pages/EditBlog";
-import EditVisaPage from "./admin/pages/EditVisa";
-import VisaGrid from "./pages/visas/VisaGrid";
 
+const UserLayout = lazy(() => import("./layouts/UserLayout"));
+const Homepage = lazy(() => import("./pages/index"));
+const AboutUs = lazy(() => import("./pages/Aboutus/index"));
+const Faq = lazy(() => import("./pages/Faq/index"));
+const VisaInner = lazy(() => import("./pages/visas/inner"));
+const PrivacyPolicy = lazy(() => import("./pages/Privacy-police/index"));
+const Blog = lazy(() => import("./pages/Blogs/index"));
+const LandingPage = lazy(() => import("./pages/Landing"));
+const BlogInner = lazy(() => import("./pages/Blogs/inner"));
+const Contact = lazy(() => import("./pages/Contact/index"));
+const VisaGrid = lazy(() => import("./pages/visas/VisaGrid"));
 
+const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
+const Dashboard = lazy(() => import("./admin/pages/DashBoard"));
+const AddVisas = lazy(() => import("./admin/pages/AddVisas"));
+const CreateBlog = lazy(() => import("./admin/components/CreateBlog"));
+const LoginPage = lazy(() => import("./admin/pages/Login"));
+const ManageBlogs = lazy(() => import("./admin/pages/ManageBlog"));
+const ManageVisas = lazy(() => import("./admin/pages/ManageVisas"));
+const EditBlogPage = lazy(() => import("./admin/pages/EditBlog"));
+const EditVisaPage = lazy(() => import("./admin/pages/EditVisa"));
 
 // const Home = lazy(() => import("./pages/index"));
 // const AboutUs = lazy(() => import("./pages/Aboutus/index"));
@@ -45,15 +45,13 @@ import VisaGrid from "./pages/visas/VisaGrid";
 // const BlogInner = lazy(() => import("./pages/Blogs/inner"));
 // const LandingPage = lazy(() => import("./pages/Landing"));
 
-
 function App() {
   const [admin, setAdmin] = useState(false);
   // const [admin, setAdmin] = useState(false);
 
-
   useEffect(() => {
     // Check if user data exists in local storage
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem("user");
     if (userData) {
       const user = JSON.parse(userData);
       if (user) {
@@ -65,7 +63,7 @@ function App() {
   return (
     <>
       <div>
-      <ToastContainer />
+        <ToastContainer />
         <Routes>
           {admin ? (
             <Route element={<AdminLayout />}>
@@ -81,21 +79,91 @@ function App() {
             </Route>
           ) : (
             <Route element={<UserLayout />}>
-              <Route path="/login" element={<LoginPage  setAdmin={setAdmin}/>} />
-              <Route path="/" element={<Homepage />} />
-              <Route path="/visa" element={<VisaGrid />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/faq" element={<Faq />} />
-              <Route path="/visa/:id" element={<VisaInner />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route
+                path="/login"
+                element={<LoginPage setAdmin={setAdmin} />}
+              />
+              <Route
+                path="/"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Homepage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/visa"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <VisaGrid />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <AboutUs />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/faq"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Faq />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/visa/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <VisaInner />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/contact"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Contact />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/privacy-policy"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <PrivacyPolicy />
+                  </Suspense>
+                }
+              />
               <Route path="/blogs" element={<Blog />} />
               <Route
                 path="/visa-consultant-in-dubai"
-                element={<LandingPage />}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <LandingPage />
+                  </Suspense>
+                }
               />
-              <Route path="/blogs/:id" element={<BlogInner />} />
-              <Route path="*" element={<NotFoundPage />} />
+              <Route
+                path="/blogs/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <BlogInner />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <NotFoundPage />
+                  </Suspense>
+                }
+              />
             </Route>
           )}
         </Routes>

@@ -7,6 +7,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { allvisaData } from "../Constant";
 import axios from "axios";
 import { vars } from "../../constents/Api";
+import Loader from "../Loading";
 
 const YourCustomPrevArrowComponent = ({ onClick, disabled }) => (
   <div
@@ -41,6 +42,7 @@ function TravelCarousal() {
   const [visaData, setVisaData] = useState([]); // State for visa data
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+
   const lastSlideIndex = allvisaData.length - 3;
   var settings = {
     dots: false,
@@ -103,8 +105,7 @@ function TravelCarousal() {
   useEffect(() => {
     const fetchVisaData = async () => {
       try {
-        console.log("dadsasdas");
-
+        setLoading(true);
         const response = await axios.get(
           `${vars.api_url}/api/1.0/user/testimonial/testimonials`
         ); // Replace with your API endpoint
@@ -133,35 +134,44 @@ function TravelCarousal() {
           Your First Choice for the Most Requested Visas
         </p>
       )}
-      <Slider
-        ref={(c) => (sliders = c)}
-        {...settings}
-        className="travelaCarousal"
-      >
-        {visaData?.reverse().map((data) => {
-          return (
-            <div
-              className={`bg-[#DCE1C8] rounded-xl overflow-hidden`}
-              key={data._id}
-            >
-              <img
-                onClick={() => navigate(`/visa/${data._id}`)}
-                loading="lazy" // Changed to lazy for better performance
-                className="w-full h-48 sm:h-52 md:h-56 object-left-bottom object-cover cursor-pointer"
-                src={data?.imageURL}
-                alt={data?.title}
-                width="800" // Set an explicit width based on the image's expected display size
-                height="450" // Set an explicit height to maintain aspect ratio
-                srcSet={`
-    ${data?.imageURL}?w=400 400w,
-    ${data?.imageURL}?w=800 800w,
-    ${data?.imageURL}?w=1200 1200w
-  `} // Use srcSet for responsive images
-              />
-            </div>
-          );
-        })}
-      </Slider>
+
+      {loading ? (
+        <Loader />
+      ) : (
+        <Slider
+          ref={(c) => (sliders = c)}
+          {...settings}
+          className="travelaCarousal"
+        >
+          {visaData
+            ?.slice()
+            .reverse()
+            .map((data) => {
+              return (
+                <div
+                  className={`bg-[#DCE1C8] rounded-xl overflow-hidden`}
+                  key={data._id}
+                >
+                  <img
+                    onClick={() => navigate(`/visa/${data.slug}`)}
+                    loading="lazy" // Changed to lazy for better performance
+                    className="w-full h-48 sm:h-52 md:h-56 object-left-bottom object-cover cursor-pointer"
+                    src={data?.imageURL}
+                    alt={data?.title}
+                    width="800" // Set an explicit width based on the image's expected display size
+                    height="450" // Set an explicit height to maintain aspect ratio
+                    srcSet={`
+                  ${data?.imageURL}?w=400 400w,
+                  ${data?.imageURL}?w=800 800w,
+                  ${data?.imageURL}?w=1200 1200w
+                  `} // Use srcSet for responsive images
+                    sizes="(max-width: 800px) 100vw, 800px"
+                  />
+                </div>
+              );
+            })}
+        </Slider>
+      )}
       <div className="w-full md:w-fit  mx-auto mt-10">
         <Link to="/visa">
           <button className="w-full md:w-fit text-sm md:text-sm font-PoppinsMedium px-10  lg:px-20 py-2 md:py-4 lg:py-3 capitalize border border-visaclr rounded-full text-visaclr bg-white hover:bg-visaclr hover:text-white duration-200">

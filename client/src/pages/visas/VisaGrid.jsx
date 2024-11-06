@@ -87,7 +87,7 @@ const VisaGrid = () => {
                 <h2 className="text-xl font-semibold mb-2">{visa.country}</h2>
                 <button
                   onClick={() => navigate(`/visa/${visa.slug}`)} // Assuming `url` is part of the visa data
-                  className="bg-visaclr font-PoppinsMedium px-2 text-sm py-1 rounded-lg text-white w-fit"
+                  className="bg-visaclr font-PoppinsMedium px-2 text-sm py-1 rounded-lg text-white w-fit"a
                 >
                   Read more
                 </button>

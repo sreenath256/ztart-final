@@ -42,6 +42,9 @@ const LoginPage = ({ setAdmin }) => {
 
       const data = response?.data?.data;
 
+      console.log(response.data.data);
+      
+
       // Assuming your API returns an admin flag
       if (data) {
         setAdmin(true); // Update admin state in App

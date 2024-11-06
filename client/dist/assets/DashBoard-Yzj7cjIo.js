@@ -1,0 +1,1 @@
+import{j as e}from"./index-tmO2HUr7.js";const o=()=>e.jsxs("div",{children:[e.jsx("h2",{className:"text-xl font-bold",children:"Dashboard"}),e.jsx("p",{children:"Welcome to the Blog Admin Panel!"})]});export{o as default};

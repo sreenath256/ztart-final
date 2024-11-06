@@ -269,12 +269,13 @@ const EditVisaForm = () => {
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Description
         </label>
-        <textarea
+
+        <ReactQuill
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-visaclr focus:border-visaclr"
-          required
+          onChange={(value) => setDescription(value)}
+          placeholder="Enter description... "
+          modules={modules}
+          formats={formats}
         />
       </div>
 

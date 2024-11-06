@@ -1,6 +1,7 @@
 // framework
 const express = require("express");
 const fileUpload = require('express-fileupload');
+const compression = require('compression')
 
 // external packages
 const helmet = require("helmet");
@@ -14,7 +15,7 @@ const { exceptionConverter, exceptionHandler } = require("./utils/exception");
 const { NotFoundException } = require("./utils/customExceptions");
 
 const app = express();
-
+app.use(compression());
 
 // parse application/json
 

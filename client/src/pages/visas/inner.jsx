@@ -251,10 +251,10 @@ const VisaInner = () => {
               dangerouslySetInnerHTML={{ __html: visadata.body1 }}
             ></div> */}
               <div className="mt-5 flex flex-col gap-10 text-3xl font-bold  ">
-                {visadata?.title}
+                <h1>{visadata?.title}</h1>
               </div>
-              <div className=" flex flex-col gap-10   capitalize text-base mt-3 ">
-                {visadata?.description}
+              <div className=" flex flex-col gap-10 text-base mt-3 ">
+                <RichTextContent content={visadata.description} />
               </div>
 
               <div className="flex gap-3">
@@ -272,7 +272,7 @@ const VisaInner = () => {
               {visadata?.questions?.map((question) => (
                 <div className="pb-3 border-b border-b-1">
                   <RichTextContent content={question.question} />
-                
+
                   <RichTextContent content={question.answer} />
                 </div>
               ))}

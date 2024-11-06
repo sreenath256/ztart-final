@@ -195,22 +195,21 @@ const handleAuthenticate = async (data, headers) => {
   console.log("asdfgsdfgh");
   
   const user = await authenticateUser(data?.username);
-  console.log(user);
 
   // await validatePassword(data?.password, user?.password);
   if (data?.password !== user?.password) {
     return false;
   }
-  console.log("asdasdaadadasds");
 
   // const role = await getActiveRole(user);
   const payload = await generatePayload(user, 'admin');
   console.log(payload);
   
   const tokens = await generateTokens(payload, headers);
-  console.log(tokens);
+  console.log("This is from tocken",tokens);
   
   const profile = await getProfile(payload?.userId);
+  
   return {
     headers: generateTokenHeaders(tokens),
     data: {  profile },
